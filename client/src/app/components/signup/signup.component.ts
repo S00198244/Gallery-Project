@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { SessionQuery } from 'src/app/store/session.query';
 
 @Component({
   selector: 'app-signup',
@@ -15,17 +16,18 @@ export class SignupComponent implements OnInit {
   authError = false;
   authErrorMsg!: string;
 
-  signupForm = new FormGroup({
-    firstName: new FormControl(null, Validators.required),
-    lastName: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required]),
-    confirmPassword: new FormControl(null, [Validators.required]),
-  });
+  signupForm!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService, private sessionQuery: SessionQuery) { }
 
-  ngOnInit(): void {
+  ngOnInit() { 
+    this.signupForm = new FormGroup({
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required]),
+      confirmPassword: new FormControl(null, [Validators.required]),
+    });
   }
 
   onSubmit() {
@@ -38,15 +40,15 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    // this.session.signup(this.signupForm.value)
-    //   .subscribe(() => {
-    //     // Successful signup
-    //     this.router.navigate(['/']);
-    //   },
-    //   (error) => {
-    //     // Failed signup
-    //     this.authError = true;
-    //     (this.authErrorMsg = error.error)
-    //   });
+    this.authService.signup(this.signupForm.value)
+      .subscribe(() => {
+        // Successful signup
+        this.router.navigate(['/events']);
+      },
+      (error) => {
+        // Failed signup
+        this.authError = true;
+        (this.authErrorMsg = error.error)
+      });
   }
 }

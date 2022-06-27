@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,15 @@ export class LoginComponent implements OnInit {
   authError = false;
   authErrorMsg!: string;
 
-  loginForm = new FormGroup({
-    email: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required),
-  });
+  loginForm!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+    });
   }
 
   onSubmit() {
@@ -35,16 +37,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // this.sessionService.login(this.loginForm.value)
-    //   .subscribe(() => {
-    //       // Successful login
-    //       this.router.navigate(['/']);
-    //     },
-    //     (error) => {
-    //       // Failed login
-    //       this.authError = true,
-    //       (this.authErrorMsg = error.error)
-    //     });
+    this.authService.login(this.loginForm.value)
+      .subscribe(() => {
+          // Successful login
+          this.router.navigate(['/events']);
+        },
+        (error) => {
+          // Failed login
+          this.authError = true,
+          (this.authErrorMsg = error.error)
+        });
   }
-
 }

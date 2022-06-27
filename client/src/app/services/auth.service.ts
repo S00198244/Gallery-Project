@@ -8,7 +8,7 @@ import { Login } from '../interfaces/login';
 import { resetStores } from '@datorama/akita';
 
 @Injectable({ providedIn: 'root' })
-export class SessionService {
+export class AuthService {
 
   private url = 'https://localhost:8080/api/v1';
 
