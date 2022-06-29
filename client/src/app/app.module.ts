@@ -10,6 +10,9 @@ import { SignupComponent } from './components/signup/signup.component';
 import { EventComponent } from './components/event/event.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { EditEventComponent } from './components/edit-event/edit-event.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { FooterComponent } from './components/footer/footer.component';
     SignupComponent,
     EventComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    EventDetailsComponent,
+    GalleryComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,

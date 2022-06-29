@@ -1,0 +1,60 @@
+<div class="container">
+
+    <div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
+        <div class="col-6">
+            <h1>{{ artEvent$?.title}}</h1>
+        </div>
+    </div>
+
+    <div class="row" style="color: white;">
+        <div class="col">
+            <p>{{artEvent$?.summary}}</p>
+        </div>
+    </div>
+
+    <div class="row g-5" style="margin-top: 1em; margin-bottom: 1em;">
+
+        <h3 style="color: white;">Featured Artwork</h3>
+
+        <div class="col-sm-4" *ngFor="let artPiece of eventArtPieces">
+
+            <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
+
+        </div>
+    </div>
+
+    <div class="row g-2" style="margin-top: 1em; margin-bottom: 1em;">
+
+        <h3 style="color: white;">Comments</h3>
+
+        <div class="col-12" *ngFor="let comment of comments" (click)="clicked(comment)">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" *ngIf="userID$ == comment.userID">
+                        <div class="col">
+                            <a (click)="showEditCommentForm()">Edit</a>
+                        </div>
+                        <div class="col">
+                            <a (click)="deleteComment(comment)">Delete</a>
+                        </div>
+                    </div>
+                  <h5 class="card-title">{{comment.userName}}</h5>
+                  <p class="card-text">{{comment.text}}</p>
+                  <p class="card-text">{{comment.userID}}</p>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 1em; margin-bottom: 1em;"> 
+        <div class="col">
+            <form [formGroup]="commentForm">
+
+                <textarea class="form-control" formControlName="comment" placeholder="Enter comment" rows="2"></textarea>
+
+                <button type="button" class="btn btn-light" (click)="addComment()" style="margin-top: 1em;">Comment</button>
+            </form>
+        </div>
+    </div>
+
+</div>

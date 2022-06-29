@@ -28,14 +28,4 @@ export class SessionStore extends EntityStore<SessionState> {
   constructor() {
     super(createInitialState());
   }
-
-  // login(session: SessionState) {
-  //   this.update(session);
-  //   //storage.saveSession(session);
-  // }
-
-  // logout() {
-  //   //storage.clearSesssion();
-  //   this.update(createInitialState());
-  // }
 }
