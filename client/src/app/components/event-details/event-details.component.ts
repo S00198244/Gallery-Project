@@ -23,6 +23,7 @@ export class EventDetailsComponent implements OnInit {
   userID$!: string | null;
 
   comments!: IComment[];
+
   selectedComment!: IComment;
 
   commentForm!: FormGroup;
@@ -91,6 +92,8 @@ export class EventDetailsComponent implements OnInit {
     console.log('In addComment()');
 
     this.eventService.addComment(this.commentForm.get('comment')?.value).subscribe(res => console.log(res));
+
+    this.getComments();
   }
 
   // Deleting a comment
@@ -102,6 +105,8 @@ export class EventDetailsComponent implements OnInit {
       console.log("In deleteComment()");
 
       this.eventService.deleteComment(comment._id).subscribe(res => console.log(res));
+
+      this.getComments();
     }
     else 
       return;
@@ -116,6 +121,8 @@ export class EventDetailsComponent implements OnInit {
     console.log("In editComment()");
 
     this.eventService.editComment(commentID, this.commentForm.value.comment).subscribe(res => console.log(res));
+
+    this.getComments();
     }
     else 
       return;

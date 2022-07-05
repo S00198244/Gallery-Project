@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditEventComponent } from './components/edit-event/edit-event.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventComponent } from './components/event/event.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'events', component: EventComponent},
   {path: 'eventDetails', component: EventDetailsComponent},
+  {path: 'editEvent', component: EditEventComponent},
   {path: 'gallery', component: GalleryComponent}
 ];
 

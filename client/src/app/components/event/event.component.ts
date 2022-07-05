@@ -33,6 +33,8 @@ export class EventComponent implements OnInit, OnDestroy {
 
   artEvents$: Observable<ArtEvent[]> = this.artEventQuery.artEvents$;
 
+  artEvents!: ArtEvent[];
+
   eventForm!: FormGroup;
 
   @ViewChild('btnClose')
@@ -50,7 +52,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    console.log(this.sessionQuery.userDetails$);
+    console.table(this.sessionQuery.userDetails$);
 
     console.log("Retrieving events...")
 
@@ -59,11 +61,18 @@ export class EventComponent implements OnInit, OnDestroy {
       switchMap(areEventsLoaded => {
         if (!areEventsLoaded) {
           return this.service.getEvents();
-        } else return ''
+        } else return 'Could not retrieve events'
       })
     ).subscribe(result => {})
 
+    //this.getEvents();
+
   }
+
+  // getEvents() {
+
+  //   this.service.getEvents().subscribe(res => console.log(res))
+  // }
 
   ngOnDestroy() {
 
@@ -128,6 +137,4 @@ export class EventComponent implements OnInit, OnDestroy {
 
     this.eventForm.reset();
   }
-
-
 }

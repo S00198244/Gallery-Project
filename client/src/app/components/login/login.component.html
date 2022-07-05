@@ -1,32 +1,31 @@
+<div class="row align-items-center justify-content-center" style="height: 80vh">
+    <div class="col-8 col-md-4">
 
-    <div class="row align-items-center justify-content-center" style="height: 80vh">
-        <div class="col-md-4">
+        <h2 style="color: white;">Log in</h2>
 
-            <h2 style="color: white;">Log in</h2>
+        <br>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-floating mb-3 input-space">
+                <input type="email" class="form-control" id="floatingInput" formControlName="email" placeholder="" required>
+                <label for="floatingInput">Email address</label>
+            </div>
 
             <br>
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-floating input-space">
+                <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="" required>
+                <label for="floatingPassword">Password</label>
+            </div>
 
-                <div class="form-floating mb-3 input-space">
-                    <input type="email" class="form-control" id="floatingInput" formControlName="email" placeholder="" required>
-                    <label for="floatingInput">Email address</label>
-                </div>
+            <br>
 
-                <br>
+            <button id="button" type="submit" class="btn btn-outline-light" [disabled]="loginForm.invalid" style="margin-right: 2em;">Log in</button>
 
-                <div class="form-floating input-space">
-                    <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="" required>
-                    <label for="floatingPassword">Password</label>
-                </div>
+            <button type="button" class="btn btn-light" routerLink="/signup">Signup</button>
 
-                <br>
+        </form>
 
-                <button id="button" type="submit" class="btn btn-outline-light" [disabled]="loginForm.invalid" style="margin-right: 2em;">Log in</button>
-
-                <button type="button" class="btn btn-light" routerLink="/signup">Signup</button>
-
-            </form>
-
-        </div>
     </div>
+</div>

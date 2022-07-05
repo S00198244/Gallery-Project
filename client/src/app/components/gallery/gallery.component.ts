@@ -14,6 +14,8 @@ export class GalleryComponent implements OnInit {
 
   public artPieces: Art[] = [];
 
+  public tempArtPieces: Art[] = [];
+
   message: string = "";
 
   galleryForm!: FormGroup;
@@ -31,6 +33,7 @@ export class GalleryComponent implements OnInit {
   onSubmit() {
 
     this.artPieces = [];
+    this.tempArtPieces = [];
 
     console.log(this.galleryForm.value.query);
 
@@ -47,13 +50,27 @@ export class GalleryComponent implements OnInit {
         for (let i = 0; i < 10; i++) {
 
           this.galleryService.getArt(this.artIds[i]).subscribe({
-            next: value => this.artPieces.push(value)
+            next: value => { 
+              if (value.primaryImageSmall != "") 
+              { 
+                this.tempArtPieces.push(value)
+              }
+            }
           })
 
         } 
 
+        // this.artIds.forEach(element => {
+          
+        //   this.galleryService.getArt(element).subscribe({
+        //     next: value => this.tempArtPieces.push(value)
+        //   })
+
+        // });
       },
       error: (err) => this.message = err
     });
+
+    this.artPieces = this.tempArtPieces;
   }
 }

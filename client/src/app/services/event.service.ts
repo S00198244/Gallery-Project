@@ -66,7 +66,6 @@ export class EventService {
         retry(1),
         catchError(this.handleError)
       );
-
     }
 
     // updateEvent() - Update an event

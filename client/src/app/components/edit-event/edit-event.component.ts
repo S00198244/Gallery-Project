@@ -29,13 +29,11 @@ export class EditEventComponent implements OnInit {
 
   public artPieces: Art[] = [];
 
-  eventArtPieces!: Art[] | undefined;
+  eventArtPieces: Art[] = [];
 
   constructor(private session: EventQuery, private eventService: EventService, private router: Router, private galleryService: GalleryService) {
 
     this.session.artEvent$.subscribe(res => this.artEvent$ = res)
-
-    this.session.art$.subscribe(res => this.eventArtPieces = res)
 
    }
 
@@ -58,6 +56,9 @@ export class EditEventComponent implements OnInit {
       art: new FormControl()
     })
 
+    this.artEvent$?.art.forEach(element => {
+      this.eventArtPieces.push(element)
+    });
   }
 
   updateEvent() {
@@ -68,7 +69,7 @@ export class EditEventComponent implements OnInit {
 
     this.eventService.updateEvent(this.artEvent$!._id, this.eventForm.value).subscribe((res) => console.log(res));
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/events']);
   }
 
   clicked (artPiece: Art) {

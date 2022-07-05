@@ -36,7 +36,8 @@ class eventController{
         }
 
         try{
-            
+            console.log('Saving event');
+
             let event = new Event(req.body);
 
             event = await event.save();
@@ -48,8 +49,6 @@ class eventController{
             res.status(500).json(error)
 
         }
-
-
     }
 
     // Update an event

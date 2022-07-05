@@ -1,55 +1,45 @@
-<form [formGroup]="eventForm" class="h-100">
-    <div class="h-25" style="background-color: white; margin: 0px 20px 0px 20px; padding: 2em" > <!-- top - right - bottom - left -->
-        
-        <!-- Title -->
+<form [formGroup]="eventForm">
 
-        <!-- <input type="text" class="form-control form-control-lg" id="title" formControlName="title" placeholder="Enter title"/> -->
+    <!-- Title -->
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control form-control-lg" id="floatingTitleInput" formControlName="title" placeholder="Enter title">
-            <label for="floatingTitleInput">Title</label>
-        </div>
-        
+    <div class="form-floating mb-3" style="margin-top: 2em;">
+        <input type="text" class="form-control form-control-lg" id="floatingTitleInput" formControlName="title" placeholder="Enter title">
+        <label for="floatingTitleInput">Title</label>
     </div>
-    <div class="h-75" style="padding: 2em; background-color: black; margin: 0px 20px 0px 20px">
 
-        <div class="row" style="margin-bottom: 2em;">
-            <div class="col">
-                <!-- Summary -->
+    <!-- Summary -->
 
-                <div class="form-floating">
-                    <textarea class="form-control" placeholder="Summary" formControlName="summary" id="floatingTextarea" style="height: 100px"></textarea>
-                    <label for="floatingTextarea">Summary</label>
+    <div class="form-floating" style="margin-top: 2em;">
+        <textarea class="form-control" placeholder="Summary" formControlName="summary" id="floatingTextarea" style="height: 100px"></textarea>
+        <label for="floatingTextarea">Summary</label>
+    </div>
+    
+    <!-- Artwork -->
+
+    <h3 style="color: white; margin-top: 1em;">Artwork</h3>
+
+    <div class="row" style="margin-bottom: 2em;">
+        <div class="col" *ngFor="let artPiece of eventArtPieces">
+            <div class="card">
+                <!-- <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap"> -->
+                <div class="card-body">
+                    <h5 class="card-title">{{artPiece.title}}</h5>
+                    <p class="card-text">{{artPiece.artistDisplayName}}</p>
                 </div>
             </div>
         </div>
-       
-        <!-- Art -->
+    </div>
 
-        <h3 style="color: white; margin-top: 1em;">Artwork</h3>
-
-        <div class="row" style="margin-bottom: 2em;">
-            <div class="col" *ngFor="let artPiece of eventArtPieces">
-                <div class="card">
-                    <!-- <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap"> -->
-                    <div class="card-body">
-                      <h5 class="card-title">{{artPiece.title}}</h5>
-                      <p class="card-text">{{artPiece.artistDisplayName}}</p>
-                    </div>
-                  </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add Art</button>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">Add Art</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-outline-light" (click)="updateEvent()">Update</button>
-            </div>
+        <div class="col">
+            <button class="btn btn-outline-light" (click)="updateEvent()">Update</button>
         </div>
     </div>
 </form>
+
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -57,7 +47,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Select art</h5>
-          <button type="button" class="close material-icons close-btn" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close material-icons close-btn" data-bs-dismiss="modal" aria-label="Close">
             <!-- <span aria-hidden="true">&times;</span> -->
             close
           </button>
@@ -65,24 +55,30 @@
         <div class="modal-body">
 
             <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" formControlName="query" placeholder="" required>
-                    <label for="floatingInput">Query</label>
+                <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
+                    <div class="col-10">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" formControlName="query" placeholder="" required>
+                            <label for="floatingInput">Query</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-outline-dark" type="submit" style="margin-top: 1em;">Search</button>
+                    </div>
                 </div>
-
-                <button class="btn btn-outline-dark" type="submit" style="margin-top: 1em; margin-bottom: 1em;">Search</button>
-
             </form>
 
             <div class="row g-5">
                 <div *ngFor="let artPiece of artPieces" (click)="clicked(artPiece)" class="col-6"> <!-- (click)="clicked(stack)" -->
-                    <div class="card text-white bg-dark">
-                        <!-- <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap"> -->
+
+                    <img *ngIf="artPiece.primaryImageSmall" [ngStyle]="{'display': artPiece.primaryImageSmall ? 'true' : 'none'}" class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
+
+                    <!-- <div class="card text-white bg-dark">
                         <div class="card-body">
                           <h5 class="card-title">{{artPiece.title}}</h5>
                           <p class="card-text">{{artPiece.artistDisplayName}}</p>
                         </div>
-                      </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -91,7 +87,7 @@
         </div>
         <div class="modal-footer">
             <h5>{{selectedArtPiece?.title}}</h5>
-            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-outline-dark" (click)="addArtPieceToEvent()">Add</button>
         </div>
       </div>
