@@ -67,9 +67,14 @@
 
     position: fixed;
     right: 30px;
-    bottom: 150px;
+    bottom: 30px;
 }
 
 .material-icons.md-36 { 
   font-size: 36px;
+}
+
+.row .col h3 {
+  display: inline-block;
+  margin-right: 1em;
 }

@@ -1,56 +1,58 @@
-<div class="row align-items-center justify-content-center" style="height: 80vh">
-    <div class="col-8 col-md-4">
+<div class="container">
+    <div class="row align-items-center justify-content-center" style="height: 80vh">
+        <div class="col-8 col-md-4">
 
-        <h2 style="color: white;">Sign up</h2>
+            <h2 style="color: white;">Sign up</h2>
 
-        <br>
+            <br>
 
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating input-space">
-                        <input type="text" class="form-control" id="floatingFirstName" formControlName="firstName" placeholder="" required>
-                        <label for="floatingFirstName">First name</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating input-space">
+                            <input type="text" class="form-control" id="floatingFirstName" formControlName="firstName" placeholder="" required>
+                            <label for="floatingFirstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating input-space">
+                            <input type="text" class="form-control" id="floatingLastName" formControlName="lastName" placeholder="" required>
+                            <label for="floatingLastName">Last name</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-floating input-space">
-                        <input type="text" class="form-control" id="floatingLastName" formControlName="lastName" placeholder="" required>
-                        <label for="floatingLastName">Last name</label>
-                    </div>
+
+                <br>
+
+                <div class="form-floating input-space">
+                    <input type="email" class="form-control" id="floatingEmail" formControlName="email" placeholder="" required>
+                    <label for="floatingEmail">Email address</label>
                 </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="form-floating input-space">
-                <input type="email" class="form-control" id="floatingEmail" formControlName="email" placeholder="" required>
-                <label for="floatingEmail">Email address</label>
-            </div>
+                <div class="form-floating input-space">
+                    <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
 
-            <br>
+                <br>
 
-            <div class="form-floating input-space">
-                <input type="password" class="form-control" id="floatingPassword" formControlName="password" placeholder="" required>
-                <label for="floatingPassword">Password</label>
-            </div>
+                <div class="form-floating input-space">
+                    <input type="password" class="form-control" id="floatingConfirmPassword" formControlName="confirmPassword" placeholder="" required>
+                    <label for="floatingConfirmPassword">Confirm password</label>
+                </div>
 
-            <br>
+                <br>
 
-            <div class="form-floating input-space">
-                <input type="password" class="form-control" id="floatingConfirmPassword" formControlName="confirmPassword" placeholder="" required>
-                <label for="floatingConfirmPassword">Confirm password</label>
-            </div>
+                <button id="button" type="submit" class="btn btn-outline-light" [disabled]="signupForm.invalid" style="margin-right: 2em;">Sign up</button>
 
-            <br>
+                <button type="button" class="btn btn-light" routerLink="/">Log in</button>
 
-            <button id="button" type="submit" class="btn btn-outline-light" [disabled]="signupForm.invalid" style="margin-right: 2em;">Sign up</button>
+            </form>
 
-            <button type="button" class="btn btn-light" routerLink="/">Log in</button>
-
-        </form>
-
+        </div>
     </div>
 </div>
 

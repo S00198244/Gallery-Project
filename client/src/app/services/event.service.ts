@@ -5,7 +5,7 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { ArtEvent } from '../interfaces/art-event';
 import { EventStore } from '../store/event.store';
 import { EventQuery } from '../store/event.query';
-import { IComment } from '../interfaces/icomment';
+import { Review } from '../interfaces/review';
 import { SessionQuery } from '../store/session.query';
 
 @Injectable({
@@ -104,60 +104,60 @@ export class EventService {
       );
     }
 
-    //__________________________________________________ Comments
+    //__________________________________________________ Reviews
 
-    // Get comments
+    // Get reviews
 
-    getComments() : Observable<IComment[]> {
+    getReviews() : Observable<Review[]> {
 
-      console.log("In getComments()");
+      console.log("In getReviews()");
 
-      return this.http.get<IComment[]>(`${this.url}/event/${this.artEvent$?._id}}/comments`).pipe(catchError(this.handleError));
+      return this.http.get<Review[]>(`${this.url}/event/${this.artEvent$?._id}}/reviews`).pipe(catchError(this.handleError));
     }
 
-    // Add comment
+    // Add review
 
-    addComment(comment: string) : Observable<IComment>
+    addReview(review: string) : Observable<Review>
     {
-      console.log("In addComment()");
+      console.log("In addReview()");
 
-      console.log(comment);
+      console.log(review);
 
       const data = {
-        comment: comment,
+        review: review,
         userID: this.userID,
         userName: this.fullName
       }
 
       console.log(data);
 
-      return this.http.post<IComment>(`${this.url}/event/${this.artEvent$?._id}}/addComment`, data).pipe(catchError(this.handleError));
+      return this.http.post<Review>(`${this.url}/event/${this.artEvent$?._id}}/addReview`, data).pipe(catchError(this.handleError));
     }
 
-    // Edit comment
+    // Edit review
 
-    editComment(id: string, comment: IComment) : Observable<IComment> {
+    editReview(id: string, review: Review) : Observable<Review> {
 
-      console.log("In editComment()");
+      console.log("In editReview()");
 
-      return this.http.patch<IComment>(`${this.url}/event/${this.artEvent$?._id}/comment/${id}`, comment).pipe(catchError(this.handleError));
+      return this.http.patch<Review>(`${this.url}/event/${this.artEvent$?._id}/review/${id}`, review).pipe(catchError(this.handleError));
     }
 
-    // Delete comment
+    // Delete review
 
-    deleteComment(id: string) {
-      console.log("In deleteComment()");
+    deleteReview(id: string) {
+      console.log("In deleteReview()");
 
-      return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/comment/${id}`).pipe(catchError(this.handleError));
+      return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/review/${id}`).pipe(catchError(this.handleError));
     }
 
-    // Delete comments
+    // Delete reviews
 
-    deleteComments() {
+    deleteReviews() {
 
-      console.log("In deleteComments()");
+      console.log("In deleteReviews()");
 
-      return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/comments`).pipe(catchError(this.handleError));
+      return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/reviews`).pipe(catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {

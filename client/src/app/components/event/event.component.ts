@@ -29,12 +29,10 @@ export class EventComponent implements OnInit, OnDestroy {
   deleteEventSub!: Subscription;
   estate!: EventState;
 
-  isAdmin!: boolean;
+  isAdmin$!: Observable<boolean | null>;
 
   artEvents$: Observable<ArtEvent[]> = this.artEventQuery.artEvents$;
-
   artEvents!: ArtEvent[];
-
   eventForm!: FormGroup;
 
   @ViewChild('btnClose')
@@ -47,7 +45,7 @@ export class EventComponent implements OnInit, OnDestroy {
       summary: new FormControl(null, Validators.required)
     })
 
-    this.isAdmin = this.sessionQuery.isAdmin;
+    this.isAdmin$ = this.sessionQuery.isAdmin$;
    }
 
   ngOnInit() {

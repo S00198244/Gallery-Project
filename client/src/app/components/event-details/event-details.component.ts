@@ -4,7 +4,7 @@ import { arrayAdd, arrayRemove, arrayUpdate } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { Art } from 'src/app/interfaces/art';
 import { ArtEvent } from 'src/app/interfaces/art-event';
-import { IComment } from 'src/app/interfaces/icomment';
+import { Review } from 'src/app/interfaces/review';
 import { EventService } from 'src/app/services/event.service';
 import { EventQuery } from 'src/app/store/event.query';
 import { EventStore } from 'src/app/store/event.store';
@@ -22,11 +22,11 @@ export class EventDetailsComponent implements OnInit {
 
   userID$!: string | null;
 
-  comments!: IComment[];
+  reviews!: Review[];
 
-  selectedComment!: IComment;
+  selectedReview!: Review;
 
-  commentForm!: FormGroup;
+  reviewForm!: FormGroup;
 
   // showForm!: boolean;
 
@@ -43,24 +43,25 @@ export class EventDetailsComponent implements OnInit {
  
   ngOnInit(): void { 
 
-    this.commentForm = new FormGroup({
-      comment: new FormControl(null, Validators.required)
+    this.reviewForm = new FormGroup({
+      review: new FormControl(null, Validators.required),
+      rating: new FormControl(null, Validators.required)
     })
 
-  console.log(this.artEvent$);
+    console.log(this.artEvent$);
 
-  this.getComments();
+    this.getReviews();
 
   }
 
-  clicked(comment: IComment) {
+  clicked(review: Review) {
 
-    console.table(comment);
+    console.table(review);
 
-    this.selectedComment = comment;
+    this.selectedReview = review;
   }
 
-  showEditCommentForm() {
+  showEditReviewForm() {
 
   }
 
@@ -76,55 +77,68 @@ export class EventDetailsComponent implements OnInit {
   //   console.log(this.showForm);
   // }
 
-  // Get comments
+  // Get reviews
 
-  getComments() {
+  getReviews() {
 
-    console.log("getComments()");
+    console.log("getReviews()");
 
-    this.eventService.getComments().subscribe(res => this.comments = res);
+    this.eventService.getReviews().subscribe(res => this.reviews = res);
   }
 
-  // Adding a comment
+  // Adding a review
 
-  addComment() {
+  addReview() {
 
-    console.log('In addComment()');
+    console.log('In addReview()');
 
-    this.eventService.addComment(this.commentForm.get('comment')?.value).subscribe(res => console.log(res));
-
-    this.getComments();
+    this.eventService.addReview(this.reviewForm.get('review')?.value).subscribe(res => this.reviews.push(res));
   }
 
-  // Deleting a comment
+  // Deleting a review
 
-  deleteComment(comment: IComment) {
+  deleteReview(review: Review) {
 
-    if(this.userID$ == comment.userID)
+    if(this.userID$ == review.userID)
     {
-      console.log("In deleteComment()");
+      console.log("In deleteReview()");
 
-      this.eventService.deleteComment(comment._id).subscribe(res => console.log(res));
+      this.eventService.deleteReview(review._id).subscribe((res) => {
+        console.log(res);
 
-      this.getComments();
+
+        for (let index = 0; index < this.reviews.length; index++) {
+          if (this.reviews[index]._id == review._id)
+          {
+            this.reviews.splice(index, 1)
+          }
+        }
+      });
+    }
+    else
+    {
+      return;
+    } 
+  }
+
+  // Edit (update) a review
+
+  editReview(reviewID: string) {
+
+    if(this.userID$ == this.selectedReview.userID)
+    {
+    console.log("In editReview()");
+
+    this.eventService.editReview(reviewID, this.reviewForm.value.review).subscribe(res => console.log(res));
+
+    this.getReviews();
     }
     else 
       return;
   }
 
-  // Edit (update) a comment
+  setRating(rating: number) {
 
-  editComment(commentID: string) {
-
-    if(this.userID$ == this.selectedComment.userID)
-    {
-    console.log("In editComment()");
-
-    this.eventService.editComment(commentID, this.commentForm.value.comment).subscribe(res => console.log(res));
-
-    this.getComments();
-    }
-    else 
-      return;
+    this.reviewForm.controls['rating'].setValue(rating);
   }
 }

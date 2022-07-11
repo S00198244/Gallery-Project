@@ -1,24 +1,26 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const commentSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     eventID: String,
     text: String,
+    rating: Number,
     userID: String,
     userName: String
 })
 
-function validateComment(event) {
+function validateReview(event) {
     const schema = Joi.object({
         eventID:  Joi.string(),
         text: Joi.string(),
+        rating: Joi.number(),
         userID: Joi.string(),
         userName: Joi.string()
     })
     return schema.validate(event);
 }
 
-const Comment = mongoose.model('comments', commentSchema);
+const Review = mongoose.model('reviews', reviewSchema);
 
-exports.Comment = Comment;
-exports.validate = validateComment;
+exports.Review = Review;
+exports.validate = validateReview;

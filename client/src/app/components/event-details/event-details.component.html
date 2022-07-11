@@ -1,68 +1,98 @@
-<div style="min-height: 80vh;">
-<div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
-    <div class="col-6">
-        <h1>{{ artEvent$?.title}}</h1>
-    </div>
-</div>
+<div class="container">
 
-<div class="row" style="color: white;">
-    <div class="col">
-        <p>{{artEvent$?.summary}}</p>
-    </div>
-</div>
-
-<div class="row g-5" style="margin-top: 1em; margin-bottom: 1em;">
-
-    <h3 style="color: white;">Featured Artwork</h3>
-
-    <div class="col-sm-4" *ngFor="let artPiece of eventArtPieces">
-
-        <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
-
-    </div>
-</div>
-
-<div class="row g-2" style="margin-top: 1em; margin-bottom: 1em;">
-
-    <h3 style="color: white;">Comments</h3>
-
-    <div class="col-12" *ngFor="let comment of comments" (click)="clicked(comment)">
-        <div class="card">
-            <div class="card-body">
-                <div class="row" *ngIf="userID$ == comment.userID">
-                    <div class="col-9">
-                        {{comment.userName}}
-                    </div>
-                    <div class="col-3">
-
-                        <div class="dropdown">
-                            <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path>
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" (click)="showEditCommentForm()">Edit</a></li>
-                                <li><a class="dropdown-item" (click)="deleteComment(comment)">Delete</a></li>
-                            </ul>
+    <div style="min-height: 80vh;">
+        <div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
+            <div class="col-6">
+                <h1>{{ artEvent$?.title}}</h1>
+            </div>
+        </div>
+        
+        <div class="row" style="color: white;">
+            <div class="col">
+                <p>{{artEvent$?.summary}}</p>
+            </div>
+        </div>
+        
+        <div class="row g-5" style="margin-top: 1em; margin-bottom: 1em;">
+        
+            <h3 style="color: white;">Featured Artwork</h3>
+        
+            <div class="col-sm-4" *ngFor="let artPiece of eventArtPieces">
+        
+                <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
+        
+            </div>
+        </div>
+        
+        <div class="row g-2" style="margin-top: 1em; margin-bottom: 1em;">
+        
+            <h3 style="color: white;">Reviews</h3>
+        
+            <div class="col-12" *ngFor="let review of reviews" (click)="clicked(review)">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" >
+                            <div class="col-9">
+                                {{review.userName}}
                             </div>
+                            <div class="col-3" *ngIf="userID$ == review.userID">
+        
+                                <div class="dropdown">
+                                    <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path>
+                                        </svg>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" (click)="showEditReviewForm()">Edit</a></li>
+                                        <li><a class="dropdown-item" (click)="deleteReview(review)">Delete</a></li>
+                                    </ul>
+                                    </div>
+                            </div>
+                        </div>
+                        <p class="card-text">{{review.review}}</p>
+                        <!-- <p class="card-text">{{review.userID}}</p> -->
+                    </div>
+                    </div>
+            </div>
+        </div>
+        
+        <form [formGroup]="reviewForm" style="margin-top: 1em; margin-bottom: 1em; background-color: white; padding: 2em;">
+
+            <div class="row" > 
+                <div class="col">
+                    <div class="star-rating">
+                        <input type="radio" name="stars" id="star-a" value="5" (click)="setRating(5)"/>
+                        <label for="star-a"></label>
+
+                        <input type="radio" name="stars" id="star-b" value="4" (click)="setRating(4)"/>
+                        <label for="star-b"></label>
+
+                        <input type="radio" name="stars" id="star-c" value="3" (click)="setRating(3)"/>
+                        <label for="star-c"></label>
+
+                        <input type="radio" name="stars" id="star-d" value="2" (click)="setRating(2)"/>
+                        <label for="star-d"></label>
+
+                        <input type="radio" name="stars" id="star-e" value="1" (click)="setRating(1)"/>
+                        <label for="star-e"></label>
                     </div>
                 </div>
-                <p class="card-text">{{comment.text}}</p>
-                <!-- <p class="card-text">{{comment.userID}}</p> -->
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <textarea class="form-control" formControlName="review" placeholder="Enter review" rows="2"></textarea> 
+                </div>
             </div>
-    </div>
-</div>
 
-<div class="row" style="margin-top: 1em; margin-bottom: 1em;"> 
-    <div class="col">
-        <form [formGroup]="commentForm">
+            <div class="row justify-content-end">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-outline-dark" (click)="addReview()" style="margin-top: 1em;" [disabled]="!userID$">Add Review</button>
+                </div>
+            </div>
 
-            <textarea class="form-control" formControlName="comment" placeholder="Enter comment" rows="2"></textarea>
-
-            <button type="button" class="btn btn-light" (click)="addComment()" style="margin-top: 1em;" [disabled]="!userID$">Comment</button>
         </form>
+
     </div>
-</div>
 </div>

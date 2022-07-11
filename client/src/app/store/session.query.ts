@@ -29,6 +29,13 @@ export class SessionQuery extends Query<SessionState> {
     return !!this.getValue().accessToken;
   }
 
+  get isAdmin$() {
+
+    //return this.getValue().admin;
+
+    return this.select((state) => state.admin)
+  }
+
   get isAdmin() {
 
     return this.getValue().admin;

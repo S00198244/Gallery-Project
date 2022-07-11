@@ -114,19 +114,30 @@ export class EditEventComponent implements OnInit {
     this.eventArtPieces?.push(this.selectedArtPiece);
   }
 
-  // Deleting a comment
-
-  deleteComment(commentID: string) {
-
-    console.log("In deleteComment()");
-    this.eventService.deleteComment(commentID).subscribe(res => console.log(res));
+  removeArtPieceFromEvent(artPiece: Art)
+  {
+    for (let index = 0; index < this.eventArtPieces.length; index++) {
+      
+      if (this.eventArtPieces[index].objectID == artPiece.objectID)
+      {
+        this.eventArtPieces.splice(index, 1)
+      }
+    }
   }
 
-  // Deleting a comment
+  // Deleting a review
 
-  deleteComments() {
+  deleteReview(commentID: string) {
 
-    console.log("In deleteComments()");
-    this.eventService.deleteComments().subscribe(res => console.log(res));
+    console.log("In deleteReview()");
+    this.eventService.deleteReview(commentID).subscribe(res => console.log(res));
+  }
+
+  // Deleting reviews
+
+  deleteReviews() {
+
+    console.log("In deleteReviews()");
+    this.eventService.deleteReviews().subscribe(res => console.log(res));
   }
 }

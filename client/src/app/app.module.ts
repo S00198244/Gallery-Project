@@ -14,6 +14,8 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { EditEventComponent } from './components/edit-event/edit-event.component';
 
+import { AuthGuard } from './auth/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,7 @@ import { EditEventComponent } from './components/edit-event/edit-event.component
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,22 +1,38 @@
-<div class="row" style="min-height: 80vh;">
-  <div class="col-md-6" *ngFor="let event of artEvents$ | async" (click)="clicked(event)" style="margin-top: 2em; padding: 2em;">
-
-    <div class="card">
-      <img src={{event.art[0]?.primaryImageSmall}} class="card-img-bottom" alt="..." style="height: 20em; object-fit: cover;">
-      <div class="card-body">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title">{{event.title}}</h5>
-            <p class="card-text">{{event.summary }}</p>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col" style="padding-top: 1em;">
+      <h2 style="color: white;">Exhibitions & Events</h2>
+    </div>
+  </div>
+  
+  <div class="row" style="color: white">
+    <div class="col" style="display: inline-block">
+      <h3>Current</h3>
+      <h3>Upcoming</h3>
+      <h3>Past</h3>
+    </div>
+  </div>
+  
+  <div class="row g-0" style="min-height: 80vh;">
+    <div class="col-md-6" *ngFor="let event of artEvents$ | async" (click)="clicked(event)">
+  
+      <div class="card" style="border-radius: 0%;">
+        <img src={{event.art[0]?.primaryImageSmall}} class="card-img-bottom" alt="..." style="height: 20em; object-fit: cover;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">{{event.title}}</h5>
+              <p class="card-text">{{event.summary }}</p>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-dark " (click)="goToEventDetails(event)">Details</button>
-              <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#bookingModal">Book</button>
-              <button type="button" class="btn btn-outline-dark " (click)="goToEditEvent(event)">Edit</button>
-              <button type="button" class="btn btn-outline-dark " (click)="deleteEvent(event._id)">Delete</button>
+          <div class="row">
+            <div class="col" style="padding-top: 2em;">
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-dark " (click)="goToEventDetails(event)">Details</button>
+                <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#bookingModal">Book</button>
+                <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="goToEditEvent(event)">Edit</button>
+                <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="deleteEvent(event._id)">Delete</button>
+              </div>
             </div>
           </div>
         </div>
@@ -24,6 +40,7 @@
     </div>
   </div>
 </div>
+
       
 <button type="button" class="material-icons md-36 btn btn-lg add-event-btn hvr-grow-shadow" data-bs-toggle="modal" data-bs-target="#createEventModal">add</button> <!-- (click)="openDialog()" --> 
       
