@@ -19,12 +19,11 @@ export class EventService {
   fullName!: string | null;
   userID!: string | null;
 
-  constructor(private http: HttpClient, private eventStore: EventStore,
-              private eventQuery: EventQuery, private sessionQuery: SessionQuery) { 
+  constructor(private http: HttpClient, private eventStore: EventStore, private eventQuery: EventQuery, private sessionQuery: SessionQuery) { 
 
     this.eventQuery.artEvent$.subscribe(res => this.artEvent$ = res);
 
-    this.userID = this.sessionQuery.userId$;
+    this.sessionQuery.userID$.subscribe(res => this.userID = res);
     
     this.sessionQuery.name$.subscribe(res => this.fullName = res.firstName! + ' ' + res.lastName );
 
@@ -117,21 +116,22 @@ export class EventService {
 
     // Add review
 
-    addReview(review: string) : Observable<Review>
+    addReview(review: Review) : Observable<Review>
     {
       console.log("In addReview()");
 
       console.log(review);
 
       const data = {
-        review: review,
+        rating: review.rating,
+        review: review.review,
         userID: this.userID,
         userName: this.fullName
       }
 
       console.log(data);
 
-      return this.http.post<Review>(`${this.url}/event/${this.artEvent$?._id}}/addReview`, data).pipe(catchError(this.handleError));
+      return this.http.post<Review>(`${this.url}/event/${this.artEvent$?._id}}/add_review`, data).pipe(catchError(this.handleError));
     }
 
     // Edit review
@@ -146,6 +146,7 @@ export class EventService {
     // Delete review
 
     deleteReview(id: string) {
+      
       console.log("In deleteReview()");
 
       return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/review/${id}`).pipe(catchError(this.handleError));

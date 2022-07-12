@@ -30,7 +30,7 @@ class reviewController{
 
         const newReview = { 
             eventID: req.params.id,
-            text: req.body.text,
+            review: req.body.review,
             rating: req.body.rating,
             userID: req.body.userID,
             userName: req.body.userName
@@ -91,13 +91,13 @@ class reviewController{
         console.log("In deleteReview()");
 
         try {
-            const review = await Review.findByIdAndDelete(req.params.reviewID);
+            const review = await Review.findByIdAndDelete(req.params.review_id);
 
             if (review) {
                 res.json(review._id)
             }
             else {
-                res.status(404).json(`Event with id of ${req.params.reviewID} was not found`);
+                res.status(404).json(`Event with id of ${req.params.review_id} was not found`);
             }
         }
         catch (error) {

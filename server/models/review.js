@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
     eventID: String,
-    text: String,
+    review: String,
     rating: Number,
     userID: String,
     userName: String
@@ -12,7 +12,7 @@ const reviewSchema = new mongoose.Schema({
 function validateReview(event) {
     const schema = Joi.object({
         eventID:  Joi.string(),
-        text: Joi.string(),
+        review: Joi.string(),
         rating: Joi.number(),
         userID: Joi.string(),
         userName: Joi.string()

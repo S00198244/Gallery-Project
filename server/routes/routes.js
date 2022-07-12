@@ -7,7 +7,7 @@ const reviewController = require('../controllers/review')
 
 router.post('/login', userController.login);
 router.post('/signup', userController.signup);
-router.delete('/deleteAccount', userController.deleteAccount);
+router.delete('/delete_account', userController.deleteAccount);
 
 // Event routes
 router.get('/events', eventController.getEvents);
@@ -16,10 +16,10 @@ router.patch('/event/:id', eventController.updateEvent);
 router.delete('/event/:id', eventController.deleteEvent);
 
 // Comment routes
-router.get('/event/:id/comments', reviewController.getReviews);
-router.post('/event/:id/addComment', reviewController.addReview);
-router.patch('/event/:id/comment/:commentId', reviewController.editReview);
-router.delete('/event/:id/comment/:commentId', reviewController.deleteReview);
-router.delete('/event/:id/comments', reviewController.deleteReviews);
+router.get('/event/:id/reviews', reviewController.getReviews);
+router.post('/event/:id/add_review', reviewController.addReview);
+router.patch('/event/:id/review/:review_id', reviewController.editReview);
+router.delete('/event/:id/review/:review_id', reviewController.deleteReview);
+router.delete('/event/:id/reviews', reviewController.deleteReviews);
 
 module.exports = router;

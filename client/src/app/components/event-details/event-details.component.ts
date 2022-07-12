@@ -46,7 +46,7 @@ export class EventDetailsComponent implements OnInit {
     this.reviewForm = new FormGroup({
       review: new FormControl(null, Validators.required),
       rating: new FormControl(null, Validators.required)
-    })
+    });
 
     console.log(this.artEvent$);
 
@@ -92,7 +92,9 @@ export class EventDetailsComponent implements OnInit {
 
     console.log('In addReview()');
 
-    this.eventService.addReview(this.reviewForm.get('review')?.value).subscribe(res => this.reviews.push(res));
+    console.log(this.reviewForm.value);
+
+    this.eventService.addReview(this.reviewForm.value).subscribe(res => this.reviews.push(res));
   }
 
   // Deleting a review
@@ -140,5 +142,9 @@ export class EventDetailsComponent implements OnInit {
   setRating(rating: number) {
 
     this.reviewForm.controls['rating'].setValue(rating);
+  }
+
+  rating(i: number) {
+    return new Array(i)
   }
 }

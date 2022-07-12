@@ -1,28 +1,27 @@
-<div class="container">
-
-    <div style="min-height: 80vh;">
-        <div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
-            <div class="col-6">
-                <h1>{{ artEvent$?.title}}</h1>
+<div class="container"> <!-- style="background-color: #1A2926" -->
+    <div style="min-height: 80vh; background-color: #121212; padding: 2em;">
+            <div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
+                <div class="col-6">
+                    <h1>{{ artEvent$?.title}}</h1>
+                </div>
             </div>
-        </div>
-        
-        <div class="row" style="color: white;">
-            <div class="col">
-                <p>{{artEvent$?.summary}}</p>
+            
+            <div class="row" style="color: white;">
+                <div class="col">
+                    <p>{{artEvent$?.summary}}</p>
+                </div>
             </div>
-        </div>
-        
-        <div class="row g-5" style="margin-top: 1em; margin-bottom: 1em;">
-        
-            <h3 style="color: white;">Featured Artwork</h3>
-        
-            <div class="col-sm-4" *ngFor="let artPiece of eventArtPieces">
-        
-                <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
-        
+            
+            <div class="row g-5" style="margin-top: 1em; margin-bottom: 1em;">
+            
+                <h3 style="color: white;">Featured Artwork</h3>
+            
+                <div class="col-sm-4" *ngFor="let artPiece of eventArtPieces">
+            
+                    <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
+            
+                </div>
             </div>
-        </div>
         
         <div class="row g-2" style="margin-top: 1em; margin-bottom: 1em;">
         
@@ -50,6 +49,11 @@
                                     </div>
                             </div>
                         </div>
+
+                        <div *ngFor="let number of rating(review.rating)" style="display: inline-block">
+                            <span class="fa fa-star checked" style="margin-right: .5em; margin-bottom: 1em;"></span>
+                        </div>
+
                         <p class="card-text">{{review.review}}</p>
                         <!-- <p class="card-text">{{review.userID}}</p> -->
                     </div>
@@ -57,7 +61,9 @@
             </div>
         </div>
         
-        <form [formGroup]="reviewForm" style="margin-top: 1em; margin-bottom: 1em; background-color: white; padding: 2em;">
+        <h3 style="color: white;">Add a review</h3>
+
+        <form [formGroup]="reviewForm" style="margin-top: 1em; background-color: white; padding: 2em;">
 
             <div class="row" > 
                 <div class="col">
