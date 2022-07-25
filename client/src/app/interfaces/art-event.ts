@@ -5,6 +5,8 @@ export interface ArtEvent {
     _id: string,
     title: string,
     summary: string,
+    startDate: Date,
+    endDate: Date,
     art: Art[]
     reviews: Review[],
 }

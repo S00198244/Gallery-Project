@@ -77,8 +77,13 @@
             <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
           </div>
 
-          <label for="inputDate" class="form-label">Select date</label>
-          <input type="date" id="inputDate" class="form-control">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select date</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <!-- <option *ngFor="let date of getDatesInRange(this.selectedArtEvent?.startDate, this.selectedArtEvent?.endDate)">{{date}}</option> -->
+            </select>
+          </div>
+
         </form>
       </div>
       <div class="modal-footer">

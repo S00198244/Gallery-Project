@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const eventSchema = new mongoose.Schema({
     title: String,
     summary: String,
-    art: [
-        {
+    startDate: Date,
+    endDate: Date,
+    art: [{
             objectID: Number,
             primaryImage: String,
             primaryImageSmall: String,
@@ -20,17 +21,17 @@ const eventSchema = new mongoose.Schema({
             medium: String,
             dimensions: String,
             classification: String
-        }
-    ]
-    },
+        }]
+    }
 );
 
 function validateEvent(event) {
     const schema = Joi.object({
         title: Joi.string(),
         summary: Joi.string(),
-        art: [
-            {
+        startDate: Joi.date(),
+        endDate: Joi.date(),
+        art: [{
                 objectID: Joi.number(),
                 primaryImage: Joi.string(),
                 primaryImageSmall: Joi.string(),
@@ -45,8 +46,7 @@ function validateEvent(event) {
                 medium: Joi.string(),
                 dimensions: Joi.string(),
                 classification: Joi.string()
-            }
-        ]
+            }]
     })
     return schema.validate(event);
 }

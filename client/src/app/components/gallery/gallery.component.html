@@ -24,7 +24,7 @@
         
         <div class="row g-5">
         
-            <div *ngFor="let artPiece of artPieces" class="col-3"> <!-- (click)="clicked(stack)" -->
+            <div class="col-sm-3" *ngFor="let artPiece of artPieces | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }"> <!-- (click)="clicked(stack)" -->
         
                 <img class="img-thumbnail" src={{artPiece.primaryImageSmall}} alt="Artwork">
         
@@ -39,6 +39,7 @@
         
             </div>
         </div>
+        <pagination-controls *ngIf="this.artPieces.length != 0" class="text-center" (pageChange)="page = $event"></pagination-controls>
     </div>
 </div>
 

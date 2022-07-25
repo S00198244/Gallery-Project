@@ -16,6 +16,8 @@ import { EditEventComponent } from './components/edit-event/edit-event.component
 
 import { AuthGuard } from './auth/auth.guard';
 
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { AuthGuard } from './auth/auth.guard';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

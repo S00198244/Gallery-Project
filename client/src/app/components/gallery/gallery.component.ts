@@ -24,6 +24,9 @@ export class GalleryComponent implements OnInit {
 
   constructor(private galleryService: GalleryService) { }
 
+  totalLength: any;
+  page: number = 1;
+
   ngOnInit(): void {
     this.galleryForm = new FormGroup({
       query: new FormControl([''], Validators.required)
@@ -32,8 +35,11 @@ export class GalleryComponent implements OnInit {
 
   onSubmit() {
 
+    this.page = 1;
+
     this.artPieces = [];
     this.tempArtPieces = [];
+    var count = 0;
 
     console.log(this.galleryForm.value.query);
 
@@ -47,18 +53,42 @@ export class GalleryComponent implements OnInit {
 
         // retrieving information for each objectID (10)
 
-        for (let i = 0; i < 10; i++) {
+        // for (let i = 0; i < 10; i++) {
 
-          this.galleryService.getArt(this.artIds[i]).subscribe({
-            next: value => { 
-              if (value.primaryImageSmall != "") 
-              { 
-                this.tempArtPieces.push(value)
+        this.artIds.forEach(number => {
+
+          if(count < 15)
+          {
+            console.log(number);
+
+            this.galleryService.getArt(number).subscribe({
+              next: value => { 
+                if (value.primaryImageSmall != "") 
+                { 
+                  this.tempArtPieces.push(value)
+                }
               }
-            }
-          })
+            })
 
-        } 
+            count++;
+          }
+          else {
+            return;
+          }
+          
+          
+        });
+
+          // this.galleryService.getArt(this.artIds[i]).subscribe({
+          //   next: value => { 
+          //     if (value.primaryImageSmall != "") 
+          //     { 
+          //       this.tempArtPieces.push(value)
+          //     }
+          //   }
+          // })
+
+        // } 
 
         // this.artIds.forEach(element => {
           
@@ -72,5 +102,6 @@ export class GalleryComponent implements OnInit {
     });
 
     this.artPieces = this.tempArtPieces;
+    this.totalLength = this.artPieces.length;
   }
 }

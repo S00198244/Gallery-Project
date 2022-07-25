@@ -33,10 +33,15 @@ export class EventComponent implements OnInit, OnDestroy {
 
   artEvents$: Observable<ArtEvent[]> = this.artEventQuery.artEvents$;
   artEvents!: ArtEvent[];
+
+  dates: Date[] = [];
+
   eventForm!: FormGroup;
 
   @ViewChild('btnClose')
   btnClose!: ElementRef;
+
+  selectedArtEvent!: ArtEvent;
 
   constructor(private service: EventService, private router: Router, private artEventQuery: EventQuery, private sessionQuery: SessionQuery) {
 
@@ -119,6 +124,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
   clicked(event: ArtEvent) {
 
+    this.selectedArtEvent = event;
     console.table(event);
 
   }
@@ -135,4 +141,16 @@ export class EventComponent implements OnInit, OnDestroy {
 
     this.eventForm.reset();
   }
+
+  // getDatesInRange(startDate: any, endDate: any) {
+  
+  //   const dates = [];
+  
+  //   while (startDate <= endDate) {
+  //     dates.push(startDate);
+  //     startDate.setDate(startDate.setDate() + 1);
+  //   }
+  
+  //   return dates;
+  // }
 }

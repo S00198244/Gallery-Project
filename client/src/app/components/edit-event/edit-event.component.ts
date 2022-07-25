@@ -26,6 +26,8 @@ export class EditEventComponent implements OnInit {
 
   galleryForm!: FormGroup;
 
+  startDate!: any;
+  endDate!: any;
 
   public artPieces: Art[] = [];
 
@@ -53,17 +55,22 @@ export class EditEventComponent implements OnInit {
     this.eventForm = new FormGroup({
       title: new FormControl(this.artEvent$?.title, Validators.required),
       summary: new FormControl(this.artEvent$?.summary),
+      startDate: new FormControl(this.artEvent$?.startDate),
+      endDate: new FormControl(this.artEvent$?.endDate),
       art: new FormControl()
     })
 
     this.artEvent$?.art.forEach(element => {
       this.eventArtPieces.push(element)
     });
+
   }
 
   updateEvent() {
 
     this.eventForm.controls['art'].setValue(this.eventArtPieces);
+    this.eventForm.controls['startDate'].setValue(this.startDate);
+    this.eventForm.controls['endDate'].setValue(this.endDate);
 
     console.log(this.eventForm.value);
 
@@ -140,4 +147,37 @@ export class EditEventComponent implements OnInit {
     console.log("In deleteReviews()");
     this.eventService.deleteReviews().subscribe(res => console.log(res));
   }
+
+  updateStartDate(event: any) {
+
+    console.log(event.target.value);
+
+    this.startDate = new Date(event.target.value);
+  }
+
+  updateEndDate(event: any) {
+
+    console.log(event.target.value);
+
+    this.endDate = new Date(event.target.value);
+  }
+
+  // getDatesInRange() {
+
+  //   const date = this.startDate;
+
+  //   while (date <= this.endDate) {
+
+  //     var d = new Date(date);
+
+  //     this.dates.push(d);
+
+  //     date.setDate(date.getDate() + 1);
+
+  //   }
+  
+  //   this.dates.forEach(element => {
+  //     console.log(element);
+  //   });
+  // }
 }
