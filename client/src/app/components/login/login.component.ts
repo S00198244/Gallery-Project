@@ -21,15 +21,17 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
     this.loginForm = new FormGroup({
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
+
   }
 
   onSubmit() {
 
-    console.log("In onSubmit()");
+    // console.log("In onSubmit()");
 
     this.submitted = true;
 
@@ -39,11 +41,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm.value)
       .subscribe(() => {
-          // Successful login
           this.router.navigate(['/events']);
         },
         (error) => {
-          // Failed login
           this.authError = true,
           (this.authErrorMsg = error.error)
         });

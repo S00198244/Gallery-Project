@@ -1,72 +1,80 @@
 <div class="container">
-    <form [formGroup]="eventForm">
-
-        <!-- Title -->
-    
-        <div class="form-floating mb-3" style="margin-top: 2em;">
-            <input type="text" class="form-control form-control-lg" id="floatingTitleInput" formControlName="title" placeholder="Enter title">
-            <label for="floatingTitleInput">Title</label>
-        </div>
-    
-        <!-- Summary -->
-    
-        <div class="form-floating" style="margin-top: 2em;">
-            <textarea class="form-control" placeholder="Summary" formControlName="summary" id="floatingTextarea" style="height: 100px"></textarea>
-            <label for="floatingTextarea">Summary</label>
-        </div>
-
-        <!-- Dates -->
-
-        <h3 style="color: white; margin-top: 1em;">Dates</h3>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <label for="startDate" class="form-label" style="color: white;">Select start date</label>
-                <input type="date" id="startDate" class="form-control" formControlName="startDate" (change)="updateStartDate($event)">
+    <div style="min-height: 90vh; background-color: #121212; padding: 2em;">
+        <div class="row justify-content-center">
+            <div class="col" style="padding-top: 1em; padding-bottom: 2em;">
+              <h2 style="color: white;">Edit Event</h2>
             </div>
-            <div class="col-sm-4">
-                <label for="endDate" class="form-label" style="color: white;">Select end date</label>
-                <input type="date" id="endDate" class="form-control" formControlname="endDate" (change)="updateEndDate($event)">
-            </div>
-        </div>
+          </div>
 
-        <!-- <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-outline-light" id="saveDatesButton" style="margin-top: 1em;" (click)="getDatesInRange()">Save Dates</button>
-            </div>
-        </div> -->
+        <form [formGroup]="eventForm">
 
-        <!-- Artwork -->
+            <!-- Title -->
+        
+            <div class="form-floating mb-3" style="margin-top: 2em;">
+                <input type="text" class="form-control form-control-lg" id="floatingTitleInput" formControlName="title" placeholder="Enter title">
+                <label for="floatingTitleInput">Title</label>
+            </div>
+        
+            <!-- Summary -->
+        
+            <div class="form-floating" style="margin-top: 2em;">
+                <textarea class="form-control" placeholder="Summary" formControlName="summary" id="floatingTextarea" style="height: 100px"></textarea>
+                <label for="floatingTextarea">Summary</label>
+            </div>
     
-        <h3 style="color: white; margin-top: 1em;">Artwork</h3>
+            <!-- Dates -->
     
-        <div class="row" style="margin-bottom: 2em;">
-            <div class="col-3" *ngFor="let artPiece of eventArtPieces" (click)="clicked(artPiece)">
-                <div class="card">
-                    <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5 class="card-title">{{artPiece.title}}</h5>
-                                <p class="card-text">{{artPiece.artistDisplayName}}</p>
+            <h3 style="color: white; margin-top: 1em;">Dates</h3>
+    
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="startDate" class="form-label" style="color: white;">Select start date</label>
+                    <input type="date" id="startDate" class="form-control" formControlName="startDate" (change)="updateStartDate($event)">
+                </div>
+                <div class="col-sm-4">
+                    <label for="endDate" class="form-label" style="color: white;">Select end date</label>
+                    <input type="date" id="endDate" class="form-control" formControlname="endDate" (change)="updateEndDate($event)">
+                </div>
+            </div>
+    
+            <!-- <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-light" id="saveDatesButton" style="margin-top: 1em;" (click)="getDatesInRange()">Save Dates</button>
+                </div>
+            </div> -->
+    
+            <!-- Artwork -->
+        
+            <h3 style="color: white; margin-top: 1em;">Artwork</h3>
+        
+            <div class="row" style="margin-bottom: 2em;">
+                <div class="col col-sm-6 col-md-4 col-lg-4" *ngFor="let artPiece of eventArtPieces" (click)="clicked(artPiece)">
+                    <div class="card">
+                        <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="card-title">{{artPiece.title}}</h5>
+                                    <p class="card-text">{{artPiece.artistDisplayName}}</p>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="close material-icons close-btn dark" (click)="removeArtPieceFromEvent(artPiece)">close</button>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <button type="button" class="close material-icons close-btn dark" (click)="removeArtPieceFromEvent(artPiece)">close</button>
-                            </div>
+        
                         </div>
-    
                     </div>
                 </div>
             </div>
-        </div>
-    
-        <div class="row" style="margin-bottom: 2em">
-            <div class="col">
-                <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" style="margin-right: 1em;">Add Art</button>
-                <button class="btn btn-outline-light" (click)="updateEvent()">Save Changes</button>
+        
+            <div class="row" style="margin-bottom: 2em">
+                <div class="col">
+                    <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" style="margin-right: 1em;">Add Art</button>
+                    <button class="btn btn-outline-light" (click)="updateEvent()">Save Changes</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <!-- Modal -->

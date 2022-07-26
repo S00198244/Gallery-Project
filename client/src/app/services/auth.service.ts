@@ -35,12 +35,12 @@ export class AuthService {
 
       public login(user: Login): Observable<any> {
 
-        console.log("In login()");
+        // console.log("In login()");
     
         return this.http.post<any>(`${this.url}/login`, user)
         .pipe(tap(user => {
 
-          console.log(user);
+          // console.log(user);
 
           // Updating session state
           this.sessionStore.update(() => ({

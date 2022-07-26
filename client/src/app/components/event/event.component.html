@@ -1,37 +1,39 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col" style="padding-top: 1em;">
-      <h2 style="color: white;">Exhibitions & Events</h2>
+<div class="container">
+  <div style="min-height: 90vh; background-color: #121212; padding: 2em;">
+    <div class="row justify-content-center">
+      <div class="col-4" style="padding-top: 1em; padding-bottom: 2em;">
+        <h2 style="color: white;">Exhibitions & Events</h2>
+      </div>
     </div>
-  </div>
-  
-  <div class="row" style="color: white">
-    <div class="col" style="display: inline-block">
-      <h3>Current</h3>
-      <h3>Upcoming</h3>
-      <h3>Past</h3>
-    </div>
-  </div>
-  
-  <div class="row g-0" style="min-height: 80vh;">
-    <div class="col-md-6" *ngFor="let event of artEvents$ | async" (click)="clicked(event)">
-  
-      <div class="card" style="border-radius: 0%;">
-        <img src={{event.art[0]?.primaryImageSmall}} class="card-img-bottom" alt="..." style="height: 20em; object-fit: cover;">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title">{{event.title}}</h5>
-              <p class="card-text">{{event.summary }}</p>
+    
+    <!-- <div class="row" style="color: white">
+      <div class="col" style="display: inline-block">
+        <h3>Current</h3>
+        <h3>Upcoming</h3>
+        <h3>Past</h3>
+      </div>
+    </div> -->
+    
+    <div class="row g-5">
+      <div class="col-md-6" *ngFor="let event of artEvents$ | async" (click)="clicked(event)">
+    
+        <div class="card" style="border-radius: 5px;">
+          <img src={{event.art[0]?.primaryImageSmall}} class="card-img-bottom" alt="..." style="height: 20em; object-fit: cover;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title">{{event.title}}</h5>
+                <p class="card-text">{{event.summary }}</p>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col" style="padding-top: 2em;">
-              <div class="btn-group">
-                <button type="button" class="btn btn-outline-dark " (click)="goToEventDetails(event)">Details</button>
-                <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#bookingModal">Book</button>
-                <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="goToEditEvent(event)">Edit</button>
-                <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="deleteEvent(event._id)">Delete</button>
+            <div class="row">
+              <div class="col" style="padding-top: 2em;">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-dark " (click)="goToEventDetails(event)">Details</button>
+                  <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#bookingModal">Book</button>
+                  <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="goToEditEvent(event)">Edit</button>
+                  <button *ngIf="isAdmin$ | async" type="button" class="btn btn-outline-dark " (click)="deleteEvent(event._id)">Delete</button>
+                </div>
               </div>
             </div>
           </div>
@@ -42,66 +44,66 @@
 </div>
 
       
-<button type="button" class="material-icons md-36 btn btn-lg add-event-btn hvr-grow-shadow" data-bs-toggle="modal" data-bs-target="#createEventModal">add</button> <!-- (click)="openDialog()" --> 
+<button type="button" *ngIf="isAdmin$ | async" class="material-icons md-36 btn btn-lg add-event-btn hvr-grow-shadow" data-bs-toggle="modal" data-bs-target="#createEventModal">add</button> <!-- (click)="openDialog()" --> 
       
-<!-- Modal (Booking a ticket) -->
+<!-- -------------------------------------------------- MODAL - BOOKING AN EVENT -------------------------------------------------- -->
+
 <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="bookingModalLabel">Book a date</h5>
         <button type="button" class="close material-icons close-btn" data-bs-dismiss="modal" aria-label="Close">
-          <!-- <span aria-hidden="true">&times;</span> -->
           close
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="bookingForm">
           <div class="row">
             <div class="col">
               <div class="mb-3">
                 <label for="firstNameInput" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstNameInput" placeholder="Please enter a value">
+                <input type="text" class="form-control" id="firstNameInput" formControlName="firstName" placeholder="Please enter a value" required>
               </div>
             </div>
             <div class="col">
               <div class="mb-3">
                 <label for="surnameInput" class="form-label">Surname</label>
-                <input type="text" class="form-control" id="surnameInput" placeholder="Please enter a value">
+                <input type="text" class="form-control" id="surnameInput" formControlName="lastName" placeholder="Please enter a value" required>
               </div>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="emailInput" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+            <input type="email" class="form-control" id="emailInput" formControlName="email" placeholder="name@example.com" required>
           </div>
 
           <div class="form-group">
             <label for="exampleFormControlSelect1">Select date</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <!-- <option *ngFor="let date of getDatesInRange(this.selectedArtEvent?.startDate, this.selectedArtEvent?.endDate)">{{date}}</option> -->
+            <select class="form-control" id="exampleFormControlSelect1" formControlName="date">
+              <option *ngFor="let date of dates">{{date.toDateString()}}</option>
             </select>
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-dark">Book now</button>
+        <button #btnClose id="btnClose" type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark" [disabled]="bookingForm.invalid" (click)="bookEvent()">Book now</button>
       </div>
     </div>
   </div>
 </div>
       
-<!-- Modal (Creating an event) -->
+<!-- -------------------------------------------------- MODAL - CREATING AN EVENT -------------------------------------------------- -->
+
 <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">
       <div class="modal-header">
       <h5 class="modal-title" id="createEventModalLabel">Create a new event</h5>
       <button type="button" class="close material-icons close-btn" data-bs-dismiss="modal" aria-label="Close">
-          <!-- <span aria-hidden="true">&times;</span> -->
           close
       </button>
       </div>
@@ -111,22 +113,34 @@
   
               <div class="form-group">
                   <label for="title">Event Title</label>
-                  <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter event title">
+
+                  <div *ngIf="eventForm.get('title')!.invalid && eventForm.get('title')!.errors && (eventForm.get('title')!.dirty || eventForm.get('title')!.touched)">
+                    <small id="title-error-msg" class="text-danger" *ngIf="eventForm.get('title')!.errors?.['required']">Title is required</small>
+                  </div>
+
+                  <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter event title" required>
               </div>
   
               <br/>
   
               <div class="form-group">
                   <label for="summary">Event Summary</label>
-                  <input type="textarea" class="form-control" id="summary" formControlName="summary" placeholder="Enter event summary">
+
+                  <div *ngIf="eventForm.get('summary')!.invalid && eventForm.get('summary')!.errors && (eventForm.get('summary')!.dirty || eventForm.get('summary')!.touched)">
+                    <small id="summary-error-msg" class="text-danger" *ngIf="eventForm.get('summary')!.errors?.['required']">Summary is required</small>
+                  </div>
+
+                  <input type="textarea" class="form-control" id="summary" formControlName="summary" placeholder="Enter event summary" required>
               </div>
+
+
   
           </form>
 
       </div>
       <div class="modal-footer">
           <button #btnClose id="btnClose" type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline-dark" (click)="addEvent()">Add event</button>
+          <button type="button" class="btn btn-outline-dark" (click)="addEvent()" [disabled]="eventForm.invalid">Add event</button>
       </div>
   </div>
 </div>

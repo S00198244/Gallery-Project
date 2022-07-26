@@ -7,8 +7,10 @@ class reviewController{
     {
         console.log("In getReviews()");
 
+        const eventID = req.params.id;
+
         try {
-            const reviews = await Review.find()
+            const reviews = await Review.find({ eventID: eventID })
 
             if (reviews) {
                 res.json(reviews)

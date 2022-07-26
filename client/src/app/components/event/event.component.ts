@@ -8,6 +8,7 @@ import { EventService } from 'src/app/services/event.service';
 import { EventQuery } from 'src/app/store/event.query';
 import { EventState } from 'src/app/store/event.store';
 import { SessionQuery } from 'src/app/store/session.query';
+import * as moment from 'moment';
 
 
 @Component({
@@ -34,9 +35,11 @@ export class EventComponent implements OnInit, OnDestroy {
   artEvents$: Observable<ArtEvent[]> = this.artEventQuery.artEvents$;
   artEvents!: ArtEvent[];
 
+  // dates!: Observable<string | null>
   dates: Date[] = [];
 
   eventForm!: FormGroup;
+  bookingForm!: FormGroup;
 
   @ViewChild('btnClose')
   btnClose!: ElementRef;
@@ -50,8 +53,15 @@ export class EventComponent implements OnInit, OnDestroy {
       summary: new FormControl(null, Validators.required)
     })
 
+    this.bookingForm = new FormGroup({
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      email: new FormControl(null, Validators.required),
+      date: new FormControl(null, Validators.required)
+    })
+
     this.isAdmin$ = this.sessionQuery.isAdmin$;
-   }
+  }
 
   ngOnInit() {
 
@@ -127,6 +137,9 @@ export class EventComponent implements OnInit, OnDestroy {
     this.selectedArtEvent = event;
     console.table(event);
 
+    this.dates = this.getDates(event.startDate, event.endDate);
+
+    
   }
 
   addEvent() {
@@ -142,15 +155,29 @@ export class EventComponent implements OnInit, OnDestroy {
     this.eventForm.reset();
   }
 
-  // getDatesInRange(startDate: any, endDate: any) {
-  
-  //   const dates = [];
-  
-  //   while (startDate <= endDate) {
-  //     dates.push(startDate);
-  //     startDate.setDate(startDate.setDate() + 1);
-  //   }
-  
-  //   return dates;
-  // }
+  getDates(startDate: Date, endDate: Date) {
+    var dates = [];
+
+    var currDate = moment(startDate).startOf('day');
+    var lastDate = moment(endDate).startOf('day');
+
+    dates.push(currDate.clone().toDate());
+
+    while(currDate.add(1, 'days').diff(lastDate) < 0) {
+      dates.push(currDate.clone().toDate());
+    }
+
+    dates.push(lastDate.clone().toDate())
+
+    return dates;
+  }
+
+  bookEvent() {
+
+    console.log(this.bookingForm.value);
+
+    this.btnClose.nativeElement.click();
+
+    this.bookingForm.reset();
+  }
 }

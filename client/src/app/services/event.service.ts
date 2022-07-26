@@ -109,7 +109,7 @@ export class EventService {
 
     getReviews() : Observable<Review[]> {
 
-      console.log("In getReviews()");
+      console.log(`Retrieving reviews for Event: ${this.artEvent$?._id}`);
 
       return this.http.get<Review[]>(`${this.url}/event/${this.artEvent$?._id}}/reviews`).pipe(catchError(this.handleError));
     }
