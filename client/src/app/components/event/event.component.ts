@@ -20,11 +20,6 @@ export class EventComponent implements OnInit, OnDestroy {
 
   closeResult!: '';
 
-  /*
-  eventToBeUpdated: ArtEvent | any;
-  isUpdateActivated = false;
-  updateEventSub!: Subscription;
-  */
 
   listEventSub!: Subscription;
   deleteEventSub!: Subscription;
@@ -34,8 +29,13 @@ export class EventComponent implements OnInit, OnDestroy {
 
   artEvents$: Observable<ArtEvent[]> = this.artEventQuery.artEvents$;
   artEvents!: ArtEvent[];
+  selectedArtEvent!: ArtEvent;
 
-  // dates!: Observable<string | null>
+  userID: String | null = this.sessionQuery.userID;
+  firstName: String | null = this.sessionQuery.firstName;
+  lastName: String | null = this.sessionQuery.lastName;
+  email: String | null = this.sessionQuery.email;
+
   dates: Date[] = [];
 
   eventForm!: FormGroup;
@@ -43,8 +43,6 @@ export class EventComponent implements OnInit, OnDestroy {
 
   @ViewChild('btnClose')
   btnClose!: ElementRef;
-
-  selectedArtEvent!: ArtEvent;
 
   constructor(private service: EventService, private router: Router, private artEventQuery: EventQuery, private sessionQuery: SessionQuery) {
 
@@ -54,9 +52,11 @@ export class EventComponent implements OnInit, OnDestroy {
     })
 
     this.bookingForm = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
+      eventID: new FormControl(null),
+      userID: new FormControl(this.userID),
+      firstName: new FormControl(this.firstName, Validators.required),
+      lastName: new FormControl(this.lastName, Validators.required),
+      email: new FormControl(this.email, Validators.required),
       date: new FormControl(null, Validators.required)
     })
 
@@ -173,6 +173,17 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   bookEvent() {
+
+    this.bookingForm.controls['eventID'].setValue(this.selectedArtEvent._id);
+
+    if (this.userID) {
+
+      this.bookingForm.controls['userID'].setValue(this.userID);
+    } 
+    else {
+
+      this.bookingForm.controls['userID'].setValue(0);
+    }
 
     console.log(this.bookingForm.value);
 

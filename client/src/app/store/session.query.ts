@@ -12,8 +12,10 @@ export class SessionQuery extends Query<SessionState> {
     // lastName$ = this.select((state) => state.lastName);
 
     userID$ = this.select((state) => state._id);
-    userId$ = this.getValue()._id;
 
+    userID = this.getValue()._id;
+    firstName = this.getValue().firstName;
+    lastName = this.getValue().lastName;
     email = this.getValue().email;
 
     //$userDetails = this.select(['userID','firstName','lastName','email','accessToken']);
