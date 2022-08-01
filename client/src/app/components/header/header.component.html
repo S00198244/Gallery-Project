@@ -1,17 +1,23 @@
-<nav class="navbar navbar-expand-lg sticky-top" style="min-height: 10vh; background-color: white;">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-md sticky-top" style="min-height: 10vh; background-color: white; padding-left: 2em; padding-right: 2em;">
+    <!-- <div class="container-fluid"> -->
       <a class="navbar-brand" routerLink="/events">Institute of Art</a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <div class="navbar-nav me-auto">
           <a class="nav-link" routerLink="/events">Exhibtions and Events</a>
           <a class="nav-link" routerLink="/gallery">Gallery</a>
+        </div>
+
+        <div class="navbar-nav ms-atuo">
           <a *ngIf="!(userID$ | async)" class="nav-link" routerLink="/">Log In</a>
           <a *ngIf="!(userID$ | async)" class="nav-link" routerLink="/signup">Sign Up</a>
           <a *ngIf="(userID$ | async)" class="nav-link" style="cursor: pointer;" (click)="logout()">Log Out</a>
+          <a *ngIf="(userID$ | async)" class="nav-link" style="cursor: pointer;" routerLink="/profile">Profile</a>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </nav>

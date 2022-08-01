@@ -16,7 +16,8 @@ import { EditEventComponent } from './components/edit-event/edit-event.component
 
 import { AuthGuard } from './auth/auth.guard';
 
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ProfileComponent } from './components/profile/profile.component'; // <-- import the module
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     FooterComponent,
     EventDetailsComponent,
     GalleryComponent,
-    EditEventComponent
+    EditEventComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,10 @@ export class SessionQuery extends Query<SessionState> {
     accessToken$ = this.select((state) => state.accessToken);
 
     name$ = this.select(['firstName', 'lastName']);
-    
+
+    firstName$ = this.select((state) => state.firstName); 
+    lastName$ = this.select((state) => state.lastName);
+
     userID$ = this.select((state) => state._id);
 
     userId$ = this.getValue()._id;
@@ -39,5 +42,9 @@ export class SessionQuery extends Query<SessionState> {
   get isAdmin() {
 
     return this.getValue().admin;
+  }
+
+  get getName() {
+    return `${this.getValue().firstName} ${this.getValue().lastName}`
   }
 }

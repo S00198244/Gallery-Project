@@ -7,6 +7,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'events', component: EventComponent},
   {path: 'eventDetails', component: EventDetailsComponent},
   {path: 'editEvent', component: EditEventComponent, canActivate:[AuthGuard]},
-  {path: 'gallery', component: GalleryComponent}
+  {path: 'gallery', component: GalleryComponent},
+  {path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

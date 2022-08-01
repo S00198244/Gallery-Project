@@ -63,11 +63,12 @@
         
         <h3 style="color: white;">Add a review</h3>
 
-        <form [formGroup]="reviewForm" style="margin-top: 1em; background-color: white; padding: 2em;">
+        <form [formGroup]="reviewForm" style="margin-top: 1em; background-color: white; padding: 2em; border-radius: 5px;">
 
-            <div class="row" > 
-                <div class="col">
-                    <div class="star-rating">
+            <div class="mb-3 row">
+                <label for="inputRating" class="col-sm-2 col-form-label">Rating</label>
+                <div class="col-sm-10">
+                    <div class="star-rating" id="inputRating">
                         <input type="radio" name="stars" id="star-a" value="5" (click)="setRating(5)"/>
                         <label for="star-a"></label>
 
@@ -86,14 +87,18 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <textarea class="form-control" formControlName="review" placeholder="Enter review" rows="2"></textarea> 
+            <div class="mb-3 row">
+                <label for="inputReview" class="col-sm-2 col-form-label">Review</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" formControlName="review" if="inputReview" placeholder="Enter review" rows="2"></textarea> 
                 </div>
             </div>
 
             <div class="row justify-content-end">
-                <div class="col-sm-2">
+                <div class="col">
+                    <h6 style="margin-top: 1em; padding-top: .5em">You must be signed in to comment</h6>
+                </div>
+                <div class="col">
                     <button type="button" class="btn btn-outline-dark" (click)="addReview()" style="margin-top: 1em;" [disabled]="!userID$">Add Review</button>
                 </div>
             </div>
