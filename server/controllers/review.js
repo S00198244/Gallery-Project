@@ -13,7 +13,7 @@ class reviewController{
             const reviews = await Review.find({ eventID: eventID })
 
             if (reviews) {
-                res.json(reviews)
+                res.status(200).json(reviews)
             }
             else {
                 res.status(404).json('Not found');

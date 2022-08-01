@@ -9,17 +9,13 @@ import { SessionQuery } from 'src/app/store/session.query';
 })
 export class ProfileComponent implements OnInit {
 
-  firstName$!: Observable<string | null>;
-  lastName$!: Observable<string | null>;
-
-  name$!: string;
+  email!: string | null;
+  name!: string;
 
   constructor(private sessionQuery: SessionQuery) {
 
-    this.firstName$ = this.sessionQuery.firstName$;
-    this.lastName$ = this.sessionQuery.lastName$;
-
-    this.name$ = this.sessionQuery.getName
+    this.name = this.sessionQuery.getName;
+    this.email = this.sessionQuery.email;
   }
 
   ngOnInit(): void {
