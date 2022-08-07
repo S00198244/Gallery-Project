@@ -59,6 +59,7 @@ class bookingController{
         let result = validate(req.body);
 
         if (result.error) {
+
             res.status(400).json(result.error);
             return;
         }
@@ -72,7 +73,8 @@ class bookingController{
 
             res.status(200).json(booking);
         }
-        catch {
+        catch (error) {
+            console.log(error);
             res.status(500).json(error);
         }
     }

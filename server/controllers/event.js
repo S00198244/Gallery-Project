@@ -2,6 +2,27 @@ const { Event, validate } = require('../models/event');
 
 class eventController{
 
+    // Get event by id
+
+    async getEventByID(req, res)
+    {
+        console.log('getEventByID() called | eventController');
+
+        try {
+            const event = await Event.findOne({ _id: req.params.id})
+
+            if (event) {
+                res.json(event);
+            }
+            else {
+                res.status(404).json('Not found');
+            }
+        }
+        catch {
+            res.status(500).json('db error')
+        }
+    }
+
     // Get events
 
     async getEvents(req, res)

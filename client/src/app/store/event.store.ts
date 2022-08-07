@@ -37,6 +37,13 @@ export class EventStore extends EntityStore<EventState> {
       areEventsLoaded
     }));
   }
+
+  // Set active entity
+
+  // setActiveEntity(eventID: string | undefined) {
+
+  //   this.setActive(eventID);
+  // }
 }
 
 

@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { SessionQuery } from 'src/app/store/session.query';
 
+import { Location } from '@angular/common'
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   userID$!: Observable<string | null>;
 
-  constructor(private sessionQuery: SessionQuery, private authService: AuthService) {
+  constructor(private sessionQuery: SessionQuery, private authService: AuthService, private _location: Location, public router: Router) {
 
     this.userID$ = this.sessionQuery.userID$;
 
@@ -25,5 +28,10 @@ export class HeaderComponent implements OnInit {
 
     this.authService.logout();
 
+  }
+
+  backClicked() {
+
+    this._location.back();
   }
 }

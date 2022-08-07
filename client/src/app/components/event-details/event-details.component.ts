@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { arrayAdd, arrayRemove, arrayUpdate } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { Art } from 'src/app/interfaces/art';
@@ -20,6 +21,8 @@ export class EventDetailsComponent implements OnInit {
   artEvent$!: ArtEvent | undefined;
   eventArtPieces!: Art[] | undefined;
 
+  isAdmin$!: Observable<boolean | null>;
+
   userID$!: string | null;
 
   reviews!: Review[];
@@ -32,12 +35,13 @@ export class EventDetailsComponent implements OnInit {
 
 
 
-  constructor(private sessionQuery: SessionQuery, private eventQuery: EventQuery, private eventStore: EventStore, private eventService: EventService) {
+  constructor(private sessionQuery: SessionQuery, private eventQuery: EventQuery, private eventStore: EventStore, private router: Router, private eventService: EventService) {
 
   this.eventQuery.artEvent$.subscribe(res => this.artEvent$ = res);
   this.eventQuery.art$.subscribe(res => this.eventArtPieces = res);
 
   this.sessionQuery.userID$.subscribe(res => this.userID$ = res);
+  this.isAdmin$ = this.sessionQuery.isAdmin$;
 
   }
  
@@ -63,6 +67,13 @@ export class EventDetailsComponent implements OnInit {
 
   showEditReviewForm() {
 
+  }
+
+  goToBooking() {
+
+    // this.eventStore.setActiveEntity(this.artEvent$?._id);
+
+    this.router.navigate(['/booking']);
   }
 
   // showCommentForm() {

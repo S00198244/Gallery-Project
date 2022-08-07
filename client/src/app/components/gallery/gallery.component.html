@@ -27,7 +27,7 @@
             <div class="col-12 col-xs-12 col-sm-6 col-md-4 col-xl-3" *ngFor="let artPiece of artPieces | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }"> <!-- (click)="clicked(stack)" -->
         
                 <div class="card">
-                    <img class="img-thumbnail image" src={{artPiece.primaryImageSmall}} alt="Artwork">
+                    <img class="img-thumbnail image" src={{artPiece.primaryImage}} alt="Artwork">
                     <div class="middle">
                         <div *ngIf="artPiece.artistDisplayName" class="text">{{artPiece.title}} by {{artPiece.artistDisplayName}}</div>
                         <div *ngIf="!artPiece.artistDisplayName" class="text">{{artPiece.title}}</div>

@@ -39,6 +39,9 @@ export class EditEventComponent implements OnInit {
 
    }
 
+  totalLength: any;
+  page: number = 1;
+
   ngOnInit(): void {
 
     console.log(this.artEvent$);
@@ -110,6 +113,8 @@ export class EditEventComponent implements OnInit {
           })
 
         } 
+
+        this.totalLength = this.artPieces.length;
 
       },
       error: (err) => this.message = err

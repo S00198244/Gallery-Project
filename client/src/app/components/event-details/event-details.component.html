@@ -1,8 +1,11 @@
 <div class="container"> <!-- style="background-color: #1A2926" -->
     <div style="min-height: 80vh; background-color: #121212; padding: 2em;">
-            <div class="row justify-content-center" style="text-align: center; color: white; padding: 2em;">
-                <div class="col-6">
+            <div class="row justify-content-end" style="text-align: center; color: white; padding: 2em;">
+                <div class="col-lg-4">
                     <h1>{{ artEvent$?.title}}</h1>
+                </div>
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-outline-light" (click)="goToBooking()" style="margin-top: 1em;" [disabled]="!userID$">Guestlist</button>
                 </div>
             </div>
             

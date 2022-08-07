@@ -7,6 +7,7 @@ import { EventStore } from '../store/event.store';
 import { EventQuery } from '../store/event.query';
 import { Review } from '../interfaces/review';
 import { SessionQuery } from '../store/session.query';
+import { Booking } from '../interfaces/booking';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,13 @@ export class EventService {
     setActive(id: string)
     {
       this.eventStore.setActive(id);
+    }
+
+    getEventByID(eventID: string): Observable<ArtEvent> {
+
+      console.log("In getEventByID()");
+
+      return this.http.get<ArtEvent>(`${this.url}/event/${eventID}`).pipe(catchError(this.handleError));
     }
 
     // getEvents() - Get all events
@@ -159,6 +167,35 @@ export class EventService {
       console.log("In deleteReviews()");
 
       return this.http.delete(`${this.url}/event/${this.artEvent$?._id}/reviews`).pipe(catchError(this.handleError));
+    }
+
+    //__________________________________________________ Bookings
+
+    // Get bookings for a user
+
+    getBookingsByUserID() : Observable<Booking[]> {
+
+      console.log("In getBookingsByUserID()");
+
+      return this.http.get<Booking[]>(`${this.url}/bookings/user/${this.userID}`).pipe(catchError(this.handleError));
+    }
+
+    // Get bookings for an event
+
+    getBookingsByEventID(eventID: string) : Observable<Booking[]> {
+
+      console.log("In getBookingsByEventID()");
+
+      return this.http.get<Booking[]>(`${this.url}/bookings/event/${eventID}`).pipe(catchError(this.handleError));
+    }
+
+    // Add a booking
+
+    addBooking(booking: any) {
+
+      console.log("In addBooking()");
+
+      return this.http.post(`${this.url}/bookings`, booking).pipe(catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {

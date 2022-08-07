@@ -44,21 +44,10 @@ export class EventComponent implements OnInit, OnDestroy {
   @ViewChild('btnClose')
   btnClose!: ElementRef;
 
+  @ViewChild('btnCloseCreateEvent')
+  btnCloseCreateEvent!: ElementRef;
+
   constructor(private service: EventService, private router: Router, private artEventQuery: EventQuery, private sessionQuery: SessionQuery) {
-
-    this.eventForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      summary: new FormControl(null, Validators.required)
-    })
-
-    this.bookingForm = new FormGroup({
-      eventID: new FormControl(null),
-      userID: new FormControl(this.userID),
-      firstName: new FormControl(this.firstName, Validators.required),
-      lastName: new FormControl(this.lastName, Validators.required),
-      email: new FormControl(this.email, Validators.required),
-      date: new FormControl(null, Validators.required)
-    })
 
     this.isAdmin$ = this.sessionQuery.isAdmin$;
   }
@@ -78,8 +67,27 @@ export class EventComponent implements OnInit, OnDestroy {
       })
     ).subscribe(result => {})
 
-    //this.getEvents();
+    this.initForms();
 
+    //this.getEvents();
+  }
+
+  initForms() {
+
+    this.eventForm = new FormGroup({
+      title: new FormControl(null, Validators.required),
+      summary: new FormControl(null, Validators.required)
+    })
+
+    this.bookingForm = new FormGroup({
+      eventID: new FormControl(null),
+      eventTitle: new FormControl(null),
+      userID: new FormControl(this.userID),
+      firstName: new FormControl(this.firstName, Validators.required),
+      lastName: new FormControl(this.lastName, Validators.required),
+      email: new FormControl(this.email, Validators.required),
+      date: new FormControl(null, Validators.required)
+    })
   }
 
   // getEvents() {
@@ -150,9 +158,9 @@ export class EventComponent implements OnInit, OnDestroy {
 
     this.service.createEvent(this.eventForm.value).subscribe((res) => console.log(res));
 
-    this.btnClose.nativeElement.click();
-
     this.eventForm.reset();
+
+    this.btnCloseCreateEvent.nativeElement.click();
   }
 
   getDates(startDate: Date, endDate: Date) {
@@ -175,6 +183,7 @@ export class EventComponent implements OnInit, OnDestroy {
   bookEvent() {
 
     this.bookingForm.controls['eventID'].setValue(this.selectedArtEvent._id);
+    this.bookingForm.controls['eventTitle'].setValue(this.selectedArtEvent.title);
 
     if (this.userID) {
 
@@ -185,10 +194,12 @@ export class EventComponent implements OnInit, OnDestroy {
       this.bookingForm.controls['userID'].setValue(0);
     }
 
-    console.log(this.bookingForm.value);
+    var date = moment(this.bookingForm.controls['date'].value);
+    this.bookingForm.controls['date'].setValue(date);
+
+    this.service.addBooking(this.bookingForm.value).subscribe((res) => console.log(res));
 
     this.btnClose.nativeElement.click();
-
-    this.bookingForm.reset();
+    // this.bookingForm.reset();
   }
 }

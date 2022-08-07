@@ -11,6 +11,7 @@ router.post('/signup', userController.signup);
 router.delete('/delete_account', userController.deleteAccount);
 
 // Event routes
+router.get('/event/:id', eventController.getEventByID)
 router.get('/events', eventController.getEvents);
 router.post('/events', eventController.addEvent);
 router.patch('/event/:id', eventController.updateEvent);

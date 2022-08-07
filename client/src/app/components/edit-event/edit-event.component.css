@@ -11,3 +11,8 @@
 .dark {
     color: black;
 }
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+    background: red;
+    color: white !important
+  }

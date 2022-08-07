@@ -21,3 +21,5 @@
       </div>
     <!-- </div> -->
   </nav>
+
+  <span class="material-icons md-36 back-btn" (click)="backClicked()" *ngIf="router.url != '/' && router.url != '/signup' && router.url != '/events'">arrow_back</span>

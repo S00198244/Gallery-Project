@@ -1,0 +1,30 @@
+<div class="container">
+    <div style="min-height: 90vh; background-color: #121212; padding: 2em;">
+        <div class="row justify-content-center">
+            <div class="col" style="padding-top: 1em; padding-bottom: 2em;">
+              <h2 style="color: white;">Event Bookings</h2>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 2em">
+
+            <div class="col-lg-6" *ngFor="let booking of bookings">
+
+                <div class="card">
+                    <div class="card-body grid-container">
+
+                        <p class="grid-item">Booking ID</p>
+                        <p class="grid-item">{{booking._id}}</p>
+
+                        <p class="grid-item">Date</p>
+                        <p class="grid-item">{{formatDate(booking.date)}}</p>
+
+                        <p class="grid-item">Name</p>
+                        <p class="grid-item">{{booking.firstName}} {{booking.lastName}}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
