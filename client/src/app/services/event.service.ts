@@ -9,12 +9,14 @@ import { Review } from '../interfaces/review';
 import { SessionQuery } from '../store/session.query';
 import { Booking } from '../interfaces/booking';
 
+import { environment } from "../../environments/environment";
+
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private url = 'https://localhost:8080/api/v1';
+  private url = environment.apiUrl;
 
   artEvent$!: ArtEvent | undefined;
   fullName!: string | null;

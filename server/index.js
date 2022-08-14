@@ -4,8 +4,12 @@ const cors = require('cors');
 const https = require('https')
 const fs = require('fs');
 
+// dot env package
+require('dotenv').config();
+const PORT = process.env.PORT || 8080;
+
 const corsOptions = {
-  origin: 'https://localhost:4200',
+  origin: process.env.ORIGIN || 'https://localhost:4200', 
   credentials: true // for cookies
 }
 
@@ -43,6 +47,6 @@ const serverOptions = {
   cert: fs.readFileSync("ssl/local.cert")
 };
 
-https.createServer(serverOptions,app).listen(8080,() =>
-  console.log(`listening on 8080, don't forget the https`));
+https.createServer(serverOptions,app).listen(PORT,() =>
+  console.log(`listening on ${PORT}, don't forget the https`));
 

@@ -2,9 +2,7 @@ const crypto = require('crypto');
 const { User, validate } = require('../models/user');
 const jwt = require('jsonwebtoken')
 
-// process.env.ACCESS_TOKEN_SECRET ||
-
-const secret = "242c7393bada6fdcc97ed8feadc2cdfb681774d4f6b5444e24bcb02e5b155f46897e2f7c2e9c4fc92464a3b1096a70ab463a4322ae2edb763e1b0c1075063b58";
+const secret = process.env.ACCESS_TOKEN_SECRET
 
 class userController
 {
@@ -168,26 +166,26 @@ class userController
 
   //____________________________________________________________________________________________________ Update password
 
-  async updatePassword(req, res) {
+  // async updatePassword(req, res) {
 
-    console.log("In updatePassword()");
+  //   console.log("In updatePassword()");
 
-    try {
+  //   try {
 
-      const user = await User.findByIdAndUpdate(req.params.id, {$set: {password: req.body.password}}, { new: true})
+  //     const user = await User.findByIdAndUpdate(req.params.id, {$set: {password: req.body.password}}, { new: true})
 
-      if (user) {
-        res.status(200).json(user);
-      }
-      else {
-          res.status(404).json(`User with id of ${req.params.id} was not found`)
-      }
+  //     if (user) {
+  //       res.status(200).json(user);
+  //     }
+  //     else {
+  //         res.status(404).json(`User with id of ${req.params.id} was not found`)
+  //     }
 
-    } catch (error) {
-      console.log(error)
-      res.status(404).json(`Event with id of ${req.params.id} was not found`);
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error)
+  //     res.status(404).json(`Event with id of ${req.params.id} was not found`);
+  //   }
+  // }
 
   //____________________________________________________________________________________________________ Delete account function
 

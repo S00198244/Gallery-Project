@@ -9,7 +9,7 @@ const bookingController = require('../controllers/booking');
 router.post('/login', userController.login);
 router.post('/signup', userController.signup);
 router.put('/update_email/:id', userController.updateEmail);
-router.put('/update_password/:id', userController.updateEmail);
+// router.put('/update_password/:id', userController.updateEmail);
 router.delete('/delete_account/:id', userController.deleteAccount);
 
 // Event routes

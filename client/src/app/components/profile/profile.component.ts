@@ -71,8 +71,13 @@ export class ProfileComponent implements OnInit {
       console.log(this.profileForm.controls['email'].value);
 
       this.authService.updateEmail(this.profileForm.controls['email'].value).subscribe((res: any) => this.email = res);
-    
-      
     }
-  } 
+  }
+
+  deleteAccount() {
+
+    console.log("In deleteAccount()");
+
+    this.authService.deleteAccount().subscribe((res: any) => console.log(res));
+  }
 }

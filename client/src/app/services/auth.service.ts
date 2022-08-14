@@ -8,10 +8,14 @@ import { Login } from '../interfaces/login';
 import { resetStores } from '@datorama/akita';
 import { SessionQuery } from '../store/session.query';
 
+import { environment } from "../../environments/environment";
+
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private url = 'https://localhost:8080/api/v1';
+  private url = environment.apiUrl;
+  
   userID!: string | null;
 
   constructor(private sessionStore: SessionStore, private http: HttpClient, private sessionQuery: SessionQuery) { 
@@ -85,13 +89,21 @@ export class AuthService {
 
     }
 
-    public updatePassword(password: string) {
+    public deleteAccount() {
+      
+      console.log("In deleteAccount()");
 
-      console.log("In updatePassword()");
-
-      return this.http.put(`${this.url}/update_password/${this.userID}`, { password: password}).pipe(catchError(this.handleError));
+      return this.http.delete(`${this.url}/delete_account/${this.userID}`).pipe(catchError(this.handleError));
 
     }
+
+    // public updatePassword(password: string) {
+
+    //   console.log("In updatePassword()");
+
+    //   return this.http.put(`${this.url}/update_password/${this.userID}`, { password: password}).pipe(catchError(this.handleError));
+
+    // }
 
     private handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
