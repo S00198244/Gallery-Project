@@ -141,6 +141,54 @@ class userController
     console.log('Signup success');
   }
 
+  //____________________________________________________________________________________________________ Update email
+
+  async updateEmail(req, res) {
+
+    console.log("In updateEmail()");
+
+    console.log(req.body.email);
+
+    try {
+
+      const  user = await User.findByIdAndUpdate(req.params.id, {$set: {email: req.body.email}}, { new: true})
+
+      if (user) {
+        res.status(200).json(user.email);
+      }
+      else {
+          res.status(404).json(`User with id of ${req.params.id} was not found`)
+      }
+
+    } catch (error) {
+      console.log(error)
+      res.status(404).json(`Event with id of ${req.params.id} was not found`);
+    }
+  }
+
+  //____________________________________________________________________________________________________ Update password
+
+  async updatePassword(req, res) {
+
+    console.log("In updatePassword()");
+
+    try {
+
+      const user = await User.findByIdAndUpdate(req.params.id, {$set: {password: req.body.password}}, { new: true})
+
+      if (user) {
+        res.status(200).json(user);
+      }
+      else {
+          res.status(404).json(`User with id of ${req.params.id} was not found`)
+      }
+
+    } catch (error) {
+      console.log(error)
+      res.status(404).json(`Event with id of ${req.params.id} was not found`);
+    }
+  }
+
   //____________________________________________________________________________________________________ Delete account function
 
   async deleteAccount(req, res) {

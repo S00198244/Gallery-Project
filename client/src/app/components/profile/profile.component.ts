@@ -5,6 +5,8 @@ import { EventService } from 'src/app/services/event.service';
 import { SessionQuery } from 'src/app/store/session.query';
 import * as moment from 'moment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { AnyFn } from '@ngrx/store/src/selector';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +20,9 @@ export class ProfileComponent implements OnInit {
   bookings!: Booking[];
   profileForm!: FormGroup;
 
-  constructor(private sessionQuery: SessionQuery, private eventService: EventService) {
+  emailFormCount: number = 0;
+
+  constructor(private sessionQuery: SessionQuery, private authService: AuthService, private eventService: EventService) {
 
     this.name = this.sessionQuery.getName;
     this.email = this.sessionQuery.email;
@@ -42,20 +46,33 @@ export class ProfileComponent implements OnInit {
 
   showUpdateEmail() {
 
-    console.log("In showUpdateEmail()");
-
     var emailForm = document.getElementById("staticEmail");
 
-    emailForm?.removeAttribute('readonly');
+    if (this.emailFormCount == 0)
+    {
+      console.log("In showUpdateEmail()");
 
+      emailForm?.removeAttribute('readonly');
+      emailForm?.classList.remove("form-control-plaintext", "input-white");
+      emailForm?.classList.add("form-control", "custom-input");
 
-    emailForm?.classList.remove("form-control-plaintext", "input-white");
-    emailForm?.classList.add("form-control");
+      this.emailFormCount++;
 
-    emailForm?.classList.add("custom-input");
+    } else if (this.emailFormCount > 0) {
 
+      emailForm?.setAttribute('readonly', 'readonly');
+      emailForm?.classList.add("form-control-plaintext", "input-white");
+      emailForm?.classList.remove("form-control", "custom-input");
 
+      console.log(this.emailFormCount);
+
+      this.emailFormCount = 0;
+
+      console.log(this.profileForm.controls['email'].value);
+
+      this.authService.updateEmail(this.profileForm.controls['email'].value).subscribe((res: any) => this.email = res);
+    
+      
+    }
   } 
-
-
 }
