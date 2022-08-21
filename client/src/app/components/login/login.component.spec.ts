@@ -182,7 +182,8 @@ describe('LoginComponent shallow test', () => {
 
 //-------------------------------------------------- Integrated Test (Testing backend service and router to ensure the whole component and dependencies behave correctly)
 
-// describe('LoginComponent integrated testing', () => {
+// fdescribe('LoginComponent integrated testing', () => {
+  
 //   let component: LoginComponent;
 //   let fixture: ComponentFixture<LoginComponent>;
 //   let httpTestingController: HttpTestingController; 
@@ -209,6 +210,7 @@ describe('LoginComponent shallow test', () => {
 //     httpTestingController = TestBed.inject(HttpTestingController);
 
 //     service = TestBed.inject(AuthService);
+
 //     serviceSpy = spyOn(service, 'login').and.callThrough();
 //   });
 
@@ -235,12 +237,12 @@ describe('LoginComponent shallow test', () => {
 
 //     updateForm(validUser.email, validUser.password);
 //     fixture.detectChanges();
-//     const button = fixture.debugElement.nativeElement.querySelector('#button');
+//     const button = fixture.debugElement.nativeElement.querySelector('button');
 
 //     button.click();
 //     fixture.detectChanges();
 // ​
-//     expect(serviceSpy.login).toHaveBeenCalledTimes(1);
+//     expect(serviceSpy).toHaveBeenCalledTimes(1);
 //   }));
 // ​
 //   //__________
@@ -249,7 +251,7 @@ describe('LoginComponent shallow test', () => {
 
 //     updateForm(validUser.email, validUser.password);
 //     fixture.detectChanges();
-//     const button = fixture.debugElement.nativeElement.querySelector('#button');
+//     const button = fixture.debugElement.nativeElement.querySelector('button');
 //     button.click();
 //     advance(fixture);
 // ​
