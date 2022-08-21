@@ -1,4 +1,9 @@
+// Http testing module and mocking controller
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { GalleryComponent } from './gallery.component';
 
@@ -8,7 +13,8 @@ describe('GalleryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GalleryComponent ]
+      declarations: [ GalleryComponent ],
+      imports: [HttpClientTestingModule, NgxPaginationModule]
     })
     .compileComponents();
 

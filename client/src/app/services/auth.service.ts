@@ -62,7 +62,7 @@ export class AuthService {
 
           // if admin - set admin
 
-          if(user.email == 'admin1234@gmail.com')
+          if(user.email == 'admin@gmail.com')
           {
             this.sessionStore.update(() => ({
               admin: true

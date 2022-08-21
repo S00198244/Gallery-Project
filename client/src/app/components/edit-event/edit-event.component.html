@@ -29,11 +29,11 @@
             <div class="row">
                 <div class="col-sm-4">
                     <label for="startDate" class="form-label" style="color: white;">Select start date</label>
-                    <input type="date" id="startDate" class="form-control" formControlName="startDate" (change)="updateStartDate($event)">
+                    <input type="date" id="startDate" class="form-control" formControlName="startDate" (change)="updateStartDate($event)" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Select start date">
                 </div>
                 <div class="col-sm-4">
                     <label for="endDate" class="form-label" style="color: white;">Select end date</label>
-                    <input type="date" id="endDate" class="form-control" formControlname="endDate" (change)="updateEndDate($event)">
+                    <input type="date" id="endDate" class="form-control" formControlname="endDate" (change)="updateEndDate($event)" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Select end date">
                 </div>
             </div>
     
@@ -50,7 +50,7 @@
             <div class="row" style="margin-bottom: 2em;">
                 <div class="col col-sm-6 col-md-4 col-lg-4" *ngFor="let artPiece of eventArtPieces" (click)="clicked(artPiece)">
                     <div class="card">
-                        <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap">
+                        <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap" style="height: 200px; width: 100%; object-fit: cover;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-10">

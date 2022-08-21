@@ -29,9 +29,12 @@ export class BookingComponent implements OnInit {
 
     // console.log(this.activeId$);
 
-    console.log(this.artEvent$?.title);
+    // console.log(this.artEvent$?.title);
 
-    this.fetchBookings()
+    if (this.artEvent$?._id)
+    {
+      this.fetchBookings()
+    }
   }
 
   fetchBookings() {
