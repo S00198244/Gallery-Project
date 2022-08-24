@@ -1,3 +1,6 @@
+// Http testing module and mocking controller
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GallerySearchbarComponent } from './gallery-searchbar.component';
@@ -8,7 +11,8 @@ describe('GallerySearchbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GallerySearchbarComponent ]
+      declarations: [ GallerySearchbarComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 
