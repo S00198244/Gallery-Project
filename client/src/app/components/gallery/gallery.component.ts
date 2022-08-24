@@ -10,98 +10,28 @@ import { GalleryService } from 'src/app/services/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  artIds!: number[];
-
   public artPieces: Art[] = [];
-
-  public tempArtPieces: Art[] = [];
-
-  message: string = "";
-
-  galleryForm!: FormGroup;
-
-
-
-  constructor(private galleryService: GalleryService) { }
-
-  totalLength: any;
   page: number = 1;
+  totalLength: any;
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.galleryForm = new FormGroup({
-      query: new FormControl([''], Validators.required)
-    })
+
   }
 
-  onSubmit() {
+  setArtPieces(art: Art[]) {
 
-    this.page = 1;
+    this.artPieces = art;
+  }
 
-    this.artPieces = [];
-    this.tempArtPieces = [];
-    var count = 0;
+  setPage(page: number) {
 
-    console.log(this.galleryForm.value.query);
+    this.page = page;
+  }
 
-    this.galleryService.getArtIds(this.galleryForm.value.query).subscribe({
-      next: value => {
-        this.artIds = value.objectIDs; // Returns an array of objectIDs that match the query
-      },
-      complete: () => {
-        console.log('Retrieved objectIDs'),
-        console.log(this.artIds);
+  setTotalLength(totalLength: number) {
 
-        // retrieving information for each objectID (10)
-
-        // for (let i = 0; i < 10; i++) {
-
-        this.artIds.forEach(number => {
-
-          if(count < 15)
-          {
-            console.log(number);
-
-            this.galleryService.getArt(number).subscribe({
-              next: value => { 
-                if (value.primaryImageSmall != "") 
-                { 
-                  this.tempArtPieces.push(value)
-                }
-              }
-            })
-
-            count++;
-          }
-          else {
-            return;
-          }
-          
-          
-        });
-
-          // this.galleryService.getArt(this.artIds[i]).subscribe({
-          //   next: value => { 
-          //     if (value.primaryImageSmall != "") 
-          //     { 
-          //       this.tempArtPieces.push(value)
-          //     }
-          //   }
-          // })
-
-        // } 
-
-        // this.artIds.forEach(element => {
-          
-        //   this.galleryService.getArt(element).subscribe({
-        //     next: value => this.tempArtPieces.push(value)
-        //   })
-
-        // });
-      },
-      error: (err) => this.message = err
-    });
-
-    this.artPieces = this.tempArtPieces;
-    this.totalLength = this.artPieces.length;
+    this.totalLength = totalLength;
   }
 }

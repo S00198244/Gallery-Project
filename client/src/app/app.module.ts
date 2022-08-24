@@ -19,7 +19,9 @@ import { AuthGuard } from './auth/auth.guard';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { ProfileComponent } from './components/profile/profile.component';
-import { BookingComponent } from './components/booking/booking.component'; // <-- import the module
+import { BookingComponent } from './components/booking/booking.component';
+import { GallerySearchbarComponent } from './components/gallery-searchbar/gallery-searchbar.component';
+import { BookingListComponent } from './components/booking-list/booking-list.component'; // <-- import the module
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { BookingComponent } from './components/booking/booking.component'; // <-
     GalleryComponent,
     EditEventComponent,
     ProfileComponent,
-    BookingComponent
+    BookingComponent,
+    GallerySearchbarComponent,
+    BookingListComponent
   ],
   imports: [
     NgxPaginationModule,

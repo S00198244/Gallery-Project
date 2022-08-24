@@ -69,6 +69,21 @@ export class EditEventComponent implements OnInit {
 
   }
 
+  setArtPieces(art: Art[]) {
+
+    this.artPieces = art;
+  }
+
+  setPage(page: number) {
+
+    this.page = page;
+  }
+
+  setTotalLength(totalLength: number) {
+
+    this.totalLength = totalLength;
+  }
+
   updateEvent() {
 
     this.eventForm.controls['art'].setValue(this.eventArtPieces);
@@ -87,38 +102,6 @@ export class EditEventComponent implements OnInit {
     console.table(artPiece);
 
     this.selectedArtPiece = artPiece;
-  }
-
-  onSubmit()
-  {
-    
-    this.artPieces = [];
-
-    console.log(this.galleryForm.value.query);
-
-    this.galleryService.getArtIds(this.galleryForm.value.query).subscribe({
-      next: value => {
-        this.artIds = value.objectIDs; // Returns an array of objectIDs that match the query
-      },
-      complete: () => {
-        console.log('Retrieved objectIDs'),
-        console.log(this.artIds);
-
-        // retrieving information for each objectID (10)
-
-        for (let i = 0; i < 10; i++) {
-
-          this.galleryService.getArt(this.artIds[i]).subscribe({
-            next: value => this.artPieces.push(value)
-          })
-
-        } 
-
-        this.totalLength = this.artPieces.length;
-
-      },
-      error: (err) => this.message = err
-    });
   }
 
   addArtPieceToEvent()

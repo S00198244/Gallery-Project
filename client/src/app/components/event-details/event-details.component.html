@@ -5,7 +5,7 @@
                     <h1>{{ artEvent$?.title}}</h1>
                 </div>
                 <div class="col-lg-4">
-                    <button type="button" class="btn btn-outline-light" (click)="goToBooking()" style="margin-top: 1em;" [disabled]="!userID$">Guestlist</button>
+                    <button type="button" class="btn btn-outline-light" (click)="goToBooking()" style="margin-top: 1em;" *ngIf="(isAdmin$ | async)">Guestlist</button>
                 </div>
             </div>
             

@@ -47,8 +47,8 @@
         
             <h3 style="color: white; margin-top: 1em;">Artwork</h3>
         
-            <div class="row" style="margin-bottom: 2em;">
-                <div class="col col-sm-6 col-md-4 col-lg-4" *ngFor="let artPiece of eventArtPieces" (click)="clicked(artPiece)">
+            <div class="row gy-5" style="margin-bottom: 2em;">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let artPiece of eventArtPieces" (click)="clicked(artPiece)">
                     <div class="card">
                         <img class="card-img-top" src={{artPiece.primaryImageSmall}} alt="Card image cap" style="height: 200px; width: 100%; object-fit: cover;">
                         <div class="card-body">
@@ -80,9 +80,9 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content bg-light">
+      <div class="modal-content" style="background-color: #121212; color: white;">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Select art</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;">Select art</h5>
           <button type="button" class="close material-icons close-btn" data-bs-dismiss="modal" aria-label="Close">
             <!-- <span aria-hidden="true">&times;</span> -->
             close
@@ -90,23 +90,7 @@
         </div>
         <div class="modal-body">
 
-            <form [formGroup]="galleryForm" (ngSubmit)="onSubmit()">
-                <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
-                    <div class="col">
-
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Enter Query" aria-label="Enter Query" aria-describedby="submitButton" formControlName="query" required>
-                            <button class="btn btn-outline-dark" type="submit" id="submitButton">Search</button>
-                        </div>
-
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" formControlName="query" placeholder="" required>
-                            <label for="floatingInput">Query</label>
-                        </div> -->
-
-                    </div>
-                </div>
-            </form>
+            <app-gallery-searchbar (artPieces)="setArtPieces($event)" (page)="setPage($event)" (totalLength)="setTotalLength($event)"></app-gallery-searchbar>
 
             <div class="row g-5" style="margin-bottom: 3em;">
                 <div *ngFor="let artPiece of artPieces | paginate: { itemsPerPage: 5, currentPage: page, totalItems: totalLength }" (click)="clicked(artPiece)" class="col-6"> <!-- (click)="clicked(stack)" -->
@@ -114,15 +98,13 @@
                 </div>
             </div>
 
-            <pagination-controls class="my-pagination" *ngIf="this.artPieces.length != 0" class="text-center" (pageChange)="page = $event" style="position: absolute; bottom: 0;"></pagination-controls>
-
-
-
+            <pagination-controls class="my-pagination" *ngIf="this.artPieces.length != 0" class="text-center" (pageChange)="page = $event" style="position: absolute; bottom: 0; align-self: center;"></pagination-controls>
+            
         </div>
         <div class="modal-footer">
             <h5>{{selectedArtPiece?.title}}</h5>
-            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-dark" (click)="addArtPieceToEvent()">Add</button>
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-light" (click)="addArtPieceToEvent()">Add</button>
         </div>
       </div>
     </div>

@@ -6,25 +6,6 @@
             </div>
           </div>
 
-          <div class="row gy-5">
-
-            <div class="col-lg-6" *ngFor="let booking of bookings">
-
-                <div class="card">
-                    <div class="card-body grid-container">
-
-                        <p class="grid-item">Event Title</p>
-                        <p class="grid-item">{{booking.eventTitle}}</p>
-
-                        <p class="grid-item">Date</p>
-                        <p class="grid-item">{{formatDate(booking.date)}}</p>
-
-                        <p class="grid-item">Name</p>
-                        <p class="grid-item">{{booking.firstName}} {{booking.lastName}}</p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+          <app-booking-list [bookings]="bookings" [guestList]="true"></app-booking-list>
     </div>
 </div>
