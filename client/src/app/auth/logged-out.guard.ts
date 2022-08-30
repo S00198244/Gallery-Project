@@ -6,7 +6,7 @@ import { SessionQuery } from '../store/session.query';
 @Injectable({
   providedIn: 'root'
 })
-export class LogGuard implements CanActivate {
+export class LoggedOutGuard implements CanActivate {
 
   isLoggedIn$!: string | null;
 
@@ -18,12 +18,12 @@ export class LogGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
 
 
-    if (this.isLoggedIn$ == null) // Preventing access to component by being logged in
+    if (this.isLoggedIn$ == null) // Preventing access to component by being logged out
     {
-      return true
+      this.router.navigate(['/']);
+      return false
     }    
     else 
-      this.router.navigate(['/events']);
-      return false;
+      return true;
   }
 }

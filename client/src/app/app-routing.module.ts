@@ -10,6 +10,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LogGuard } from './auth/log.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { LoggedOutGuard } from './auth/logged-out.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, canActivate:[LogGuard]},
@@ -18,8 +19,8 @@ const routes: Routes = [
   {path: 'eventDetails', component: EventDetailsComponent},
   {path: 'editEvent', component: EditEventComponent, canActivate:[AuthGuard]},
   {path: 'gallery', component: GalleryComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'booking', component: BookingComponent}
+  {path: 'profile', component: ProfileComponent, canActivate:[LoggedOutGuard]},
+  {path: 'booking', component: BookingComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
