@@ -18,7 +18,9 @@ app.use(cors(corsOptions));
 
 // require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/Gallery-Project', {
+// 'mongodb://localhost:27017/Gallery-Project'
+
+mongoose.connect('mongodb+srv://Jack-Coyle:3kn99Lw6yzXNCEyV@cluster0.ztma6gw.mongodb.net/?retryWrites=true&w=majority', {
   "useNewUrlParser": true,
   "useUnifiedTopology": true
 }).catch ( error => {
